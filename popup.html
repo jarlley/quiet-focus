@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Quiet Focus</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header class="top">
+      <h1>Quiet Focus</h1>
+      <label class="switch" title="Enable/Disable all">
+        <input type="checkbox" id="master" />
+        <span class="track"></span>
+        <span class="sr-only">Enable/Disable all</span>
+      </label>
+    </header>
+    <p class="hint">Switch on to hide an element.</p>
+
+    <main id="groups"></main>
+
+    <script src="selectors.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>
