@@ -2,6 +2,10 @@
 
 Chromium extension (Manifest V3) that hides distracting elements on YouTube, Instagram and X. Works in Edge, Brave and Chrome.
 
+## Screenshot
+
+![The Quiet Focus popup: a master switch, then one switch per element grouped by site](docs/popup.jpg)
+
 ## Install
 
 1. Open `edge://extensions` (Edge) or `brave://extensions` (Brave).
