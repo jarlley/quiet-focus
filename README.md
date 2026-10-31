@@ -2,7 +2,19 @@
 
 Chromium extension (Manifest V3) that hides distracting elements on YouTube, Instagram and X. Works in Edge, Brave and Chrome.
 
-## Screenshot
+## Screenshots
+
+**Before** — X as it is by default:
+
+![X home timeline with the default layout](docs/x-before.jpg)
+
+**After** — icons-only sidebar, no post box, no right column, no divider lines, a dim background:
+
+![X home timeline with Quiet Focus options on](docs/x-after.jpg)
+
+**The popup** next to the page, and the full list of options:
+
+![The popup open over the X timeline](docs/x-popup-open.jpg)
 
 ![The Quiet Focus popup: a master switch, then one switch per element grouped by site](docs/popup.jpg)
 
