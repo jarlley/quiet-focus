@@ -194,7 +194,7 @@ const FOCO_SITES = [
     hosts: ["mail.google.com"],
     // Gmail has almost no stable attributes: nav links are found by their href, the rest
     // by long-lived class names, which Google may change.
-    groups: ["Top bar", "Sidebar", "Inbox", "Right side"],
+    groups: ["Top bar", "Sidebar", "Inbox", "Right side", "Appearance"],
     options: [
       {
         // "Inbox (3) - name@gmail.com - Gmail" becomes "Inbox (3)".
@@ -388,6 +388,31 @@ const FOCO_SITES = [
           while (box && !box.querySelector('a[href*="storage"]')) box = box.parentElement;
           if (!box || box.querySelector('[role="main"] tr, [role="navigation"]')) return [];
           return [box];
+        },
+      },
+      {
+        // Same trick as X, both ways: on Gmail's light theme a layer with `darken` turns white
+        // into the chosen tint (darker text and icons stay); on a dark theme `lighten` turns
+        // black into the chosen colour. Values are "<mode>:<hex>".
+        id: "bg-color",
+        group: "Appearance",
+        label: "Background color",
+        offLabel: "Default",
+        default: "",
+        choices: [
+          { value: "darken:f5f1e8", label: "Light: Warm paper" },
+          { value: "darken:eef2f7", label: "Light: Cool gray" },
+          { value: "darken:eef5ee", label: "Light: Soft green" },
+          { value: "darken:f0eef7", label: "Light: Lavender" },
+          { value: "lighten:121212", label: "Dark theme: Charcoal" },
+          { value: "lighten:15202b", label: "Dark theme: Dim blue" },
+          { value: "lighten:0f172a", label: "Dark theme: Navy" },
+        ],
+        rules: (v) => {
+          const [mode, hex] = v.split(":");
+          return [
+            `html::before { content: ""; position: fixed; inset: 0; z-index: 2147483647; pointer-events: none; background: #${hex}; mix-blend-mode: ${mode}; }`,
+          ];
         },
       },
     ],
