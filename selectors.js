@@ -91,9 +91,24 @@ const FOCO_SITES = [
         group: "Feed",
         label: "Always \"Following\" (hide feed tabs)",
         default: true,
-        css: [
-          'main div:has(a[href*="variant=following"]):not(:has(article)):not(:has([data-pagelet="story_tray"]))',
-        ],
+        // The tabs have no link or attribute to select them by, so they are found by
+        // their text: the smallest element holding both, plus wrappers with nothing else.
+        match: (root) => {
+          const forYou = ["For you", "Para si", "Para você"];
+          const following = ["Following", "A seguir", "Seguindo"];
+          const leaf = (texts) =>
+            [...root.querySelectorAll("main span, main div, main a, main [role=tab]")].find(
+              (el) => !el.children.length && texts.includes(el.textContent.trim())
+            );
+          const a = leaf(forYou);
+          const b = leaf(following);
+          if (!a || !b) return [];
+          let box = a.parentElement;
+          while (box && !box.contains(b)) box = box.parentElement;
+          if (!box || box.querySelector("article, img, video")) return [];
+          while (box.parentElement && box.parentElement.children.length === 1) box = box.parentElement;
+          return [box];
+        },
         redirect: (url) =>
           url.pathname === "/" && url.searchParams.get("variant") !== "following"
             ? `${url.origin}/?variant=following`
