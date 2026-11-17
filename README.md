@@ -2,6 +2,8 @@
 
 Chromium extension (Manifest V3) that hides distracting elements on Instagram and X (YouTube is set up, with no options yet). Works in Chrome, Edge and Brave.
 
+More sites will be added over time.
+
 ## Screenshots
 
 Taken with **Screenshot mode** on, which blurs names, faces and post content.
@@ -26,12 +28,6 @@ Taken with **Screenshot mode** on, which blurs names, faces and post content.
 - Feed: always open "Following" (the For you / Following tabs are hidden), stories, like and comment counts.
 - Right column: "Suggested for you" and the footer.
 - Privacy: screenshot mode (blurs names, faces and post content).
-
-## More sites?
-
-Yes, eventually. More sites will be added whenever I have some free time — which,
-ironically, depends on how well this extension works. YouTube is already in the menu,
-patiently waiting for its first option, like a gym membership in February.
 
 ## Install
 
