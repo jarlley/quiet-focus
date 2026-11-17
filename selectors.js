@@ -24,6 +24,12 @@
 // elsewhere on the page (timeline, profiles) are never touched.
 const xSidebar = (sel) => `header[role="banner"] ${sel}`;
 
+// Instagram: the left bar is the only navigation landmark with these links.
+// Icons with no stable href are found by their aria-label, which follows the UI
+// language, so English and Portuguese are both listed.
+const igNav = (sel) => `div:has(> div > div > a[href="/direct/inbox/"], > div > div > div > a[href="/direct/inbox/"]) ${sel}`;
+const igIcon = (...labels) => labels.map((l) => `a:has(svg[aria-label="${l}"])`);
+
 const FOCO_SITES = [
   {
     id: "youtube",
@@ -35,7 +41,107 @@ const FOCO_SITES = [
     id: "instagram",
     label: "Instagram",
     hosts: ["instagram.com"],
-    options: [],
+    groups: ["Sidebar", "Feed", "Right column"],
+    options: [
+      {
+        id: "sidebar-home",
+        group: "Sidebar",
+        label: "Home",
+        default: false,
+        css: ['a[href="/"]'],
+      },
+      {
+        id: "sidebar-search",
+        group: "Sidebar",
+        label: "Search",
+        default: false,
+        css: igIcon("Search", "Pesquisar", "Pesquisa"),
+      },
+      {
+        id: "sidebar-explore",
+        group: "Sidebar",
+        label: "Explore",
+        default: false,
+        css: ['a[href="/explore/"]'],
+      },
+      {
+        id: "sidebar-reels",
+        group: "Sidebar",
+        label: "Reels",
+        default: false,
+        css: ['a[href="/reels/"]'],
+      },
+      {
+        id: "sidebar-messages",
+        group: "Sidebar",
+        label: "Messages",
+        default: false,
+        css: ['a[href="/direct/inbox/"]'],
+      },
+      {
+        id: "sidebar-notifications",
+        group: "Sidebar",
+        label: "Notifications",
+        default: false,
+        css: igIcon("Notifications", "Notificações"),
+      },
+      {
+        id: "sidebar-create",
+        group: "Sidebar",
+        label: "Create",
+        default: false,
+        css: igIcon("New post", "Nova publicação", "Novo post", "Criar"),
+      },
+      {
+        id: "sidebar-profile",
+        group: "Sidebar",
+        label: "Profile",
+        default: false,
+        css: [igNav('a:has(img[alt])')],
+      },
+      {
+        id: "sidebar-threads",
+        group: "Sidebar",
+        label: "Threads",
+        default: false,
+        css: ['a[href*="threads."]'],
+      },
+      {
+        id: "sidebar-more",
+        group: "Sidebar",
+        label: "More",
+        default: false,
+        css: igIcon("Settings", "Definições", "Configurações"),
+      },
+      {
+        id: "feed-stories",
+        group: "Feed",
+        label: "Stories",
+        default: false,
+        css: ['[data-pagelet="story_tray"]'],
+      },
+      {
+        id: "feed-counts",
+        group: "Feed",
+        label: "Like and comment counts (icons only)",
+        default: false,
+        css: ['article a[href$="/liked_by/"]', 'article section:has(a[href$="/liked_by/"])', 'article a[href$="/comments/"]'],
+      },
+      {
+        id: "right-suggestions",
+        group: "Right column",
+        label: "Suggested for you",
+        default: false,
+        css: ['main div:has(a[href="/explore/people/"]):not(:has(article)):not(:has([data-pagelet="story_tray"]))'],
+      },
+      {
+        id: "right-footer",
+        group: "Right column",
+        label: "Footer (About, Help…)",
+        default: false,
+        css: ['main footer'],
+      },
+    ],
   },
   {
     id: "x",
