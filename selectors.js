@@ -24,10 +24,8 @@
 // elsewhere on the page (timeline, profiles) are never touched.
 const xSidebar = (sel) => `header[role="banner"] ${sel}`;
 
-// Instagram: the left bar is the only navigation landmark with these links.
-// Icons with no stable href are found by their aria-label, which follows the UI
-// language, so English and Portuguese are both listed.
-const igNav = (sel) => `div:has(> div > div > a[href="/direct/inbox/"], > div > div > div > a[href="/direct/inbox/"]) ${sel}`;
+// Instagram: icons with no stable href are found by their aria-label, which follows
+// the UI language, so English and Portuguese are both listed.
 const igIcon = (...labels) => labels.map((l) => `a:has(svg[aria-label="${l}"])`);
 
 const FOCO_SITES = [
@@ -84,34 +82,6 @@ const FOCO_SITES = [
         label: "Notifications",
         default: false,
         css: igIcon("Notifications", "Notificações"),
-      },
-      {
-        id: "sidebar-create",
-        group: "Sidebar",
-        label: "Create",
-        default: false,
-        css: igIcon("New post", "Nova publicação", "Novo post", "Criar"),
-      },
-      {
-        id: "sidebar-profile",
-        group: "Sidebar",
-        label: "Profile",
-        default: false,
-        css: [igNav('a:has(img[alt])')],
-      },
-      {
-        id: "sidebar-threads",
-        group: "Sidebar",
-        label: "Threads",
-        default: false,
-        css: ['a[href*="threads."]'],
-      },
-      {
-        id: "sidebar-more",
-        group: "Sidebar",
-        label: "More",
-        default: false,
-        css: igIcon("Settings", "Definições", "Configurações"),
       },
       {
         id: "feed-stories",
