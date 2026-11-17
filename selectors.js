@@ -136,19 +136,6 @@ const FOCO_SITES = [
         css: [xSidebar('a[data-testid="SideNav_NewTweet_Button"]')],
       },
       {
-        id: "sidebar-post-compact",
-        label: "Sidebar: Post button (smaller)",
-        default: false,
-        rules: [
-          `${xSidebar('a[data-testid="SideNav_NewTweet_Button"]')} {
-            width: fit-content !important;
-            min-width: 0 !important;
-            min-height: 36px !important;
-            margin-left: 0 !important;
-          }`,
-        ],
-      },
-      {
         id: "sidebar-creator-studio",
         label: "Sidebar: Creator Studio",
         default: false,
