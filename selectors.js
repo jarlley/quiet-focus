@@ -253,7 +253,7 @@ const FOCO_SITES = [
         // Reply, repost, like and view counts live in this container inside the action bar.
         id: "post-counts-hide",
         label: "Posts: action counts (hide, icons only)",
-        default: false,
+        default: true,
         css: ['article [role="group"] [data-testid="app-text-transition-container"]'],
       },
       {
