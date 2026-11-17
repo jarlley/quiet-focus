@@ -95,7 +95,28 @@ const FOCO_SITES = [
         group: "Feed",
         label: "Like and comment counts (icons only)",
         default: false,
-        css: ['article a[href$="/liked_by/"]', 'article section:has(a[href$="/liked_by/"])', 'article a[href$="/comments/"]'],
+        css: ['article a[href$="/liked_by/"]', 'article a[href$="/comments/"]'],
+        // Newer layout: the count is a bare number next to each action icon, with no
+        // attribute to select it by, so it is found by its text near the icon.
+        match: (root) => {
+          const labels = ["Like", "Unlike", "Comment", "Repost", "Share", "Gosto", "Gostar", "Curtir", "Descurtir", "Comentar", "Comentário", "Republicar", "Partilhar", "Compartilhar"];
+          const count = /^\s*[\d.,]+\s*(?:[KkMm]|mil|mi)?\s*$/;
+          const out = [];
+          for (const svg of root.querySelectorAll(labels.map((l) => `svg[aria-label="${l}"]`).join(","))) {
+            let box = svg;
+            for (let i = 0; i < 4 && box.parentElement; i++) {
+              box = box.parentElement;
+              const hits = [...box.querySelectorAll("span, div")].filter(
+                (el) => !el.children.length && count.test(el.textContent)
+              );
+              if (hits.length) {
+                out.push(...hits);
+                break;
+              }
+            }
+          }
+          return out;
+        },
       },
       {
         id: "right-suggestions",
