@@ -71,13 +71,13 @@ const FOCO_SITES = [
       {
         id: "sidebar-follow",
         label: "Sidebar: Follow",
-        default: false,
+        default: true,
         css: [xSidebar('a[href^="/i/connect"]')],
       },
       {
         id: "sidebar-chat",
         label: "Sidebar: Chat",
-        default: false,
+        default: true,
         css: [
           xSidebar('a[data-testid="AppTabBar_DirectMessage_Link"]'),
           xSidebar('a[href="/i/chat"]'),
@@ -86,13 +86,13 @@ const FOCO_SITES = [
       {
         id: "sidebar-calls",
         label: "Sidebar: Calls",
-        default: false,
+        default: true,
         css: [xSidebar('a[href="/i/calls"]')],
       },
       {
         id: "sidebar-grok",
         label: "Sidebar: Grok",
-        default: false,
+        default: true,
         css: [xSidebar('a[href="/i/grok"]')],
       },
       {
@@ -104,7 +104,7 @@ const FOCO_SITES = [
       {
         id: "sidebar-premium",
         label: "Sidebar: Premium",
-        default: false,
+        default: true,
         css: [xSidebar('a[href^="/i/premium"]')],
       },
       {
@@ -132,13 +132,13 @@ const FOCO_SITES = [
       {
         id: "sidebar-post-hide",
         label: "Sidebar: Post button (hide)",
-        default: false,
+        default: true,
         css: [xSidebar('a[data-testid="SideNav_NewTweet_Button"]')],
       },
       {
         id: "sidebar-creator-studio",
         label: "Sidebar: Creator Studio",
-        default: false,
+        default: true,
         css: [xSidebar('a[href^="/i/jf/creators"]')],
       },
       // Right column. These cards have no data-testid, so they rely on aria-label,
@@ -148,7 +148,7 @@ const FOCO_SITES = [
       {
         id: "right-premium",
         label: "Right column: Subscribe to Premium",
-        default: false,
+        default: true,
         css: [
           'div:has(> div > aside[aria-label="Subscribe to Premium"])',
           // empty divider card that follows it
@@ -164,13 +164,13 @@ const FOCO_SITES = [
       {
         id: "right-who-to-follow",
         label: "Right column: Who to follow",
-        default: false,
+        default: true,
         css: ['div:has(> div > aside[aria-label="Who to follow"])'],
       },
       {
         id: "right-footer",
         label: "Right column: Footer (Terms, Privacy…)",
-        default: false,
+        default: true,
         css: [
           'nav[aria-label="Footer"]',
           'nav:has(a[href="/tos"]):has(a[href="/privacy"])', // language-independent fallback
@@ -180,13 +180,13 @@ const FOCO_SITES = [
       {
         id: "floating-grok",
         label: "Floating: Grok button",
-        default: false,
+        default: true,
         css: ['[data-testid="GrokDrawer"]'],
       },
       {
         id: "floating-messages",
         label: "Floating: Messages button",
-        default: false,
+        default: true,
         css: ['[data-testid="chat-drawer-root"]'],
       },
       // Lines: borders are removed rather than the elements hidden. Each rule only
@@ -261,7 +261,7 @@ const FOCO_SITES = [
         // The emoji families stay at the end of the stack so emoji still render.
         id: "system-font",
         label: "Use the system font",
-        default: false,
+        default: true,
         rules: [
           '*, *::before, *::after { font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji" !important; }',
         ],
@@ -274,6 +274,7 @@ const FOCO_SITES = [
         id: "bg-color",
         label: "Background color",
         offLabel: "Default (black)",
+        default: "121212",
         choices: [
           { value: "15202b", label: "Dim blue" },
           { value: "121212", label: "Charcoal" },
