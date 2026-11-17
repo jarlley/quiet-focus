@@ -292,11 +292,10 @@ const FOCO_SITES = [
         label: "Gemini button",
         default: false,
         css: [
-          '[aria-label*="Gemini"]',
-          '[data-tooltip*="Gemini"]',
-          'header *:has(> [aria-label*="Gemini"])',
-          'header *:has(> [data-tooltip*="Gemini"])',
-          'header a[href*="gemini.google.com"]',
+          // The star has no label; it is the wrapper (jscontroller xdV2Hc) holding .yIGn2b.
+          'header [jscontroller="xdV2Hc"]:has(.yIGn2b)',
+          'header [data-tooltip*="Gemini"]',
+          'header [aria-label*="Gemini"]',
         ],
       },
       {
@@ -305,8 +304,8 @@ const FOCO_SITES = [
         label: "Help (?) button",
         default: false,
         css: [
-          '[aria-label="Support"]', '[aria-label="Suporte"]', '[aria-label="Ajuda"]', '[aria-label="Help"]',
-          '[data-tooltip="Support"]', '[data-tooltip="Suporte"]', '[data-tooltip="Ajuda"]', '[data-tooltip="Help"]',
+          'header [data-tooltip="Support"]', 'header [data-tooltip="Suporte"]',
+          'header [data-tooltip="Ajuda"]', 'header [data-tooltip="Help"]',
         ],
       },
       {
@@ -315,10 +314,8 @@ const FOCO_SITES = [
         label: "Upgrade button",
         default: false,
         css: [
-          'header a[href*="one.google.com"]',
-          'header *:has(> a[href*="one.google.com"])',
-          '[aria-label*="Upgrade"]',
-          '[aria-label*="Fazer upgrade"]',
+          'header [data-pep-id^="global-pep"]',
+          'header [data-rp-onramp-container]',
         ],
       },
     ],
