@@ -27,6 +27,12 @@ Taken with **Screenshot mode** on, which blurs names, faces and post content.
 - Right column: "Suggested for you" and the footer.
 - Privacy: screenshot mode (blurs names, faces and post content).
 
+## More sites?
+
+Yes, eventually. More sites will be added whenever I have some free time — which,
+ironically, depends on how well this extension works. YouTube is already in the menu,
+patiently waiting for its first option, like a gym membership in February.
+
 ## Install
 
 1. Open `chrome://extensions` (or `edge://extensions`, `brave://extensions`).
