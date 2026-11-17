@@ -41,18 +41,72 @@ function makeSelect(opt, value, onChange) {
   return { el: select, input: select };
 }
 
+// Which site sections are expanded. The site of the current tab opens by default;
+// anything the user opens or closes is remembered for this browser only.
+let currentSiteId = null;
+function loadOpen() {
+  try { return JSON.parse(localStorage.getItem("open") || "null"); } catch { return null; }
+}
+function saveOpen(open) {
+  try { localStorage.setItem("open", JSON.stringify(open)); } catch {}
+}
+
+function makeRow(site, opt) {
+  const key = `${site.id}.${opt.id}`;
+  const row = document.createElement("div");
+  row.className = "row";
+
+  const text = document.createElement("span");
+  text.textContent = opt.label;
+
+  const onChange = (value) => {
+    state.options[key] = value;
+    save();
+    updateCount(site);
+  };
+  const value = valueOf(key, opt);
+  const { el, input } = opt.choices
+    ? makeSelect(opt, value, onChange)
+    : makeSwitch(value, onChange);
+  input.setAttribute("aria-label", `${site.label}: ${opt.group ? opt.group + ": " : ""}${opt.label}`);
+
+  row.append(text, el);
+  return row;
+}
+
+const countEls = {};
+function updateCount(site) {
+  const el = countEls[site.id];
+  if (!el) return;
+  const on = site.options.filter((o) => valueOf(`${site.id}.${o.id}`, o)).length;
+  el.textContent = site.options.length ? `${on}/${site.options.length}` : "";
+}
+
 function render() {
   master.checked = state.all;
   document.body.classList.toggle("disabled", !state.all);
   groupsEl.replaceChildren();
+  const open = loadOpen() || {};
 
   for (const site of FOCO_SITES) {
-    const group = document.createElement("section");
+    const group = document.createElement("details");
     group.className = "group";
+    group.open = open[site.id] ?? site.id === currentSiteId;
+    group.addEventListener("toggle", () => {
+      const now = loadOpen() || {};
+      now[site.id] = group.open;
+      saveOpen(now);
+    });
 
-    const title = document.createElement("h2");
-    title.textContent = site.label;
+    const title = document.createElement("summary");
+    const name = document.createElement("span");
+    name.textContent = site.label;
+    const count = document.createElement("span");
+    count.className = "count";
+    countEls[site.id] = count;
+    title.append(name, count);
     group.append(title);
+    updateCount(site);
 
     if (!site.options.length) {
       const empty = document.createElement("p");
@@ -61,26 +115,21 @@ function render() {
       group.append(empty);
     }
 
+    // Sub-groups in order of first appearance; options without a group come first.
+    const sub = new Map((site.groups || []).map((g) => [g, []]));
     for (const opt of site.options) {
-      const key = `${site.id}.${opt.id}`;
-      const row = document.createElement("div");
-      row.className = "row";
-
-      const text = document.createElement("span");
-      text.textContent = opt.label;
-
-      const onChange = (value) => {
-        state.options[key] = value;
-        save();
-      };
-      const value = valueOf(key, opt);
-      const { el, input } = opt.choices
-        ? makeSelect(opt, value, onChange)
-        : makeSwitch(value, onChange);
-      input.setAttribute("aria-label", `${site.label}: ${opt.label}`);
-
-      row.append(text, el);
-      group.append(row);
+      const g = opt.group || "";
+      if (!sub.has(g)) sub.set(g, []);
+      sub.get(g).push(opt);
+    }
+    for (const [name, opts] of sub) {
+      if (!opts.length) continue;
+      if (name) {
+        const h = document.createElement("h3");
+        h.textContent = name;
+        group.append(h);
+      }
+      for (const opt of opts) group.append(makeRow(site, opt));
     }
 
     groupsEl.append(group);
@@ -93,7 +142,19 @@ master.addEventListener("change", () => {
   save();
 });
 
-chrome.storage.sync.get(STORAGE_KEY, (res) => {
+function currentTabHost() {
+  return new Promise((resolve) => {
+    try {
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        try { resolve(new URL(tabs[0].url).hostname); } catch { resolve(""); }
+      });
+    } catch { resolve(""); }
+  });
+}
+
+Promise.all([chrome.storage.sync.get(STORAGE_KEY), currentTabHost()]).then(([res, host]) => {
+  const site = FOCO_SITES.find((s) => s.hosts.some((h) => host === h || host.endsWith("." + h)));
+  currentSiteId = site ? site.id : null;
   state = { all: true, options: {}, ...(res[STORAGE_KEY] || {}) };
   render();
 });

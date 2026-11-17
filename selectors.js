@@ -6,6 +6,7 @@
 //   {
 //     id: "shorts",                 // unique within the site
 //     label: "Shorts",              // text shown in the popup
+//     group: "Sidebar",             // optional; sub-heading in the popup (by first appearance)
 //     css: ['a[href^="/shorts"]'],  // selectors to hide (display: none !important)
 //     rules: ['sel { ... }'],       // optional; raw CSS rules, for resizing instead of hiding
 //     choices: [{ value, label }],  // optional; shows a dropdown instead of a switch, and
@@ -40,10 +41,13 @@ const FOCO_SITES = [
     id: "x",
     label: "X",
     hosts: ["x.com", "twitter.com"],
+    // Optional order of the popup sub-headings; groups not listed follow in order of first appearance.
+    groups: ["Sidebar", "Home", "Posts", "Right column", "Floating buttons", "Appearance"],
     options: [
       {
         id: "sidebar-home",
-        label: "Sidebar: Home",
+        group: "Sidebar",
+        label: "Home",
         default: false,
         css: [
           xSidebar('a[data-testid="AppTabBar_Home_Link"]'),
@@ -52,7 +56,8 @@ const FOCO_SITES = [
       },
       {
         id: "sidebar-explore",
-        label: "Sidebar: Explore",
+        group: "Sidebar",
+        label: "Explore",
         default: false,
         css: [
           xSidebar('a[data-testid="AppTabBar_Explore_Link"]'),
@@ -61,7 +66,8 @@ const FOCO_SITES = [
       },
       {
         id: "sidebar-notifications",
-        label: "Sidebar: Notifications",
+        group: "Sidebar",
+        label: "Notifications",
         default: false,
         css: [
           xSidebar('a[data-testid="AppTabBar_Notifications_Link"]'),
@@ -70,13 +76,15 @@ const FOCO_SITES = [
       },
       {
         id: "sidebar-follow",
-        label: "Sidebar: Follow",
+        group: "Sidebar",
+        label: "Follow",
         default: true,
         css: [xSidebar('a[href^="/i/connect"]')],
       },
       {
         id: "sidebar-chat",
-        label: "Sidebar: Chat",
+        group: "Sidebar",
+        label: "Chat",
         default: true,
         css: [
           xSidebar('a[data-testid="AppTabBar_DirectMessage_Link"]'),
@@ -85,44 +93,51 @@ const FOCO_SITES = [
       },
       {
         id: "sidebar-calls",
-        label: "Sidebar: Calls",
+        group: "Sidebar",
+        label: "Calls",
         default: true,
         css: [xSidebar('a[href="/i/calls"]')],
       },
       {
         id: "sidebar-grok",
-        label: "Sidebar: Grok",
+        group: "Sidebar",
+        label: "Grok",
         default: true,
         css: [xSidebar('a[href="/i/grok"]')],
       },
       {
         id: "sidebar-history",
-        label: "Sidebar: History",
+        group: "Sidebar",
+        label: "History",
         default: false,
         css: [xSidebar('a[href^="/i/history"]')],
       },
       {
         id: "sidebar-premium",
-        label: "Sidebar: Premium",
+        group: "Sidebar",
+        label: "Premium",
         default: true,
         css: [xSidebar('a[href^="/i/premium"]')],
       },
       {
         id: "sidebar-profile",
-        label: "Sidebar: Profile",
+        group: "Sidebar",
+        label: "Profile",
         default: false,
         css: [xSidebar('a[data-testid="AppTabBar_Profile_Link"]')],
       },
       {
         id: "sidebar-more",
-        label: "Sidebar: More",
+        group: "Sidebar",
+        label: "More",
         default: false,
         css: [xSidebar('[data-testid="AppTabBar_More_Menu"]')],
       },
       {
         // Hides only the text next to each icon; the Post button and account menu are outside the <nav>.
         id: "sidebar-icons-only",
-        label: "Sidebar: icons only (hide names)",
+        group: "Sidebar",
+        label: "Icons only (hide names)",
         default: false,
         css: [
           xSidebar('nav a div[dir="ltr"]'),
@@ -131,13 +146,15 @@ const FOCO_SITES = [
       },
       {
         id: "sidebar-post-hide",
-        label: "Sidebar: Post button (hide)",
+        group: "Sidebar",
+        label: "Post button (hide)",
         default: true,
         css: [xSidebar('a[data-testid="SideNav_NewTweet_Button"]')],
       },
       {
         id: "sidebar-creator-studio",
-        label: "Sidebar: Creator Studio",
+        group: "Sidebar",
+        label: "Creator Studio",
         default: true,
         css: [xSidebar('a[href^="/i/jf/creators"]')],
       },
@@ -147,7 +164,8 @@ const FOCO_SITES = [
       // levels up, so :has() hides the whole card wrapper instead of only its content.
       {
         id: "right-premium",
-        label: "Right column: Subscribe to Premium",
+        group: "Right column",
+        label: "Subscribe to Premium",
         default: true,
         css: [
           'div:has(> div > aside[aria-label="Subscribe to Premium"])',
@@ -157,19 +175,22 @@ const FOCO_SITES = [
       },
       {
         id: "right-trending",
-        label: "Right column: What's happening",
+        group: "Right column",
+        label: "What's happening",
         default: false,
         css: ['div:has(> section > div[aria-label="Timeline: Trending now"])'],
       },
       {
         id: "right-who-to-follow",
-        label: "Right column: Who to follow",
+        group: "Right column",
+        label: "Who to follow",
         default: true,
         css: ['div:has(> div > aside[aria-label="Who to follow"])'],
       },
       {
         id: "right-footer",
-        label: "Right column: Footer (Terms, Privacy…)",
+        group: "Right column",
+        label: "Footer (Terms, Privacy…)",
         default: true,
         css: [
           'nav[aria-label="Footer"]',
@@ -179,13 +200,15 @@ const FOCO_SITES = [
       // Floating buttons in the bottom-right corner.
       {
         id: "floating-grok",
-        label: "Floating: Grok button",
+        group: "Floating buttons",
+        label: "Grok button",
         default: true,
         css: ['[data-testid="GrokDrawer"]'],
       },
       {
         id: "floating-messages",
-        label: "Floating: Messages button",
+        group: "Floating buttons",
+        label: "Messages button",
         default: true,
         css: ['[data-testid="chat-drawer-root"]'],
       },
@@ -193,6 +216,7 @@ const FOCO_SITES = [
       // touches a known separator, so bordered cards (quoted posts, polls) are untouched.
       {
         id: "lines-all",
+        group: "Appearance",
         label: "Remove all lines",
         default: false,
         rules: [
@@ -216,7 +240,8 @@ const FOCO_SITES = [
       // timeline cells (and, for the post box, of the tab bar), which is the wrapper itself.
       {
         id: "home-post-box",
-        label: "Home: post box (What's happening?)",
+        group: "Home",
+        label: "Post box (What's happening?)",
         default: false,
         // Every ancestor of the field that does not contain a tab (role="tab") or a post cell.
         // That stops just below the shared wrapper, so the last match is the whole post box
@@ -230,7 +255,8 @@ const FOCO_SITES = [
       },
       {
         id: "home-for-you-tab",
-        label: "Home: \"For you\" tab",
+        group: "Home",
+        label: "\"For you\" tab",
         default: false,
         css: [
           // :has([role="tab"]) skips the post box's icon row, which is also a role="tablist"
@@ -242,7 +268,8 @@ const FOCO_SITES = [
         // first selector hides the sticky wrapper too (every ancestor of the form that holds
         // no card), so no blank strip is left above the other cards.
         id: "right-search-hide",
-        label: "Right column: search box (hide)",
+        group: "Right column",
+        label: "Search box (hide)",
         default: false,
         css: [
           '[data-testid="sidebarColumn"] div:has(form[role="search"]):not(:has(aside)):not(:has(section)):not(:has(nav))',
@@ -252,7 +279,8 @@ const FOCO_SITES = [
       {
         // Reply, repost, like and view counts live in this container inside the action bar.
         id: "post-counts-hide",
-        label: "Posts: action counts (hide, icons only)",
+        group: "Posts",
+        label: "Action counts (hide, icons only)",
         default: true,
         css: ['article [role="group"] [data-testid="app-text-transition-container"]'],
       },
@@ -260,6 +288,7 @@ const FOCO_SITES = [
         // X sets TwitterChirp on <body> and again on many elements, so every element is overridden.
         // The emoji families stay at the end of the stack so emoji still render.
         id: "system-font",
+        group: "Appearance",
         label: "Use the system font",
         default: true,
         rules: [
@@ -272,6 +301,7 @@ const FOCO_SITES = [
         // `lighten` (per channel max): pure black becomes the chosen colour, while anything
         // brighter (text, borders, buttons) is untouched. Only dark colours make sense here.
         id: "bg-color",
+        group: "Appearance",
         label: "Background color",
         offLabel: "Default (black)",
         default: "121212",

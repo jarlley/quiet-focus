@@ -3,7 +3,7 @@
   "name": "Quiet Focus",
   "version": "0.1.0",
   "description": "Hides distracting elements on YouTube, Instagram and X.",
-  "permissions": ["storage"],
+  "permissions": ["storage", "activeTab"],
   "action": {
     "default_title": "Quiet Focus",
     "default_popup": "popup.html",
