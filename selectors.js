@@ -41,7 +41,7 @@ const FOCO_SITES = [
     id: "instagram",
     label: "Instagram",
     hosts: ["instagram.com"],
-    groups: ["Sidebar", "Feed", "Right column"],
+    groups: ["Sidebar", "Feed", "Right column", "Privacy"],
     options: [
       {
         id: "sidebar-home",
@@ -168,6 +168,23 @@ const FOCO_SITES = [
         default: false,
         css: ['main footer'],
       },
+      {
+        // Blurs faces, names, text and media so screenshots show only the layout.
+        id: "screenshot-mode",
+        group: "Privacy",
+        label: "Screenshot mode (blur personal content)",
+        default: false,
+        rules: [
+          'img { filter: blur(8px) !important; }',
+          'video { filter: blur(8px) !important; }',
+          'canvas { filter: blur(8px) !important; }',
+          '[data-pagelet="story_tray"] span { filter: blur(8px) !important; }',
+          'article header { filter: blur(8px) !important; }',
+          'article h1 { filter: blur(8px) !important; }',
+          'article span[dir="auto"] { filter: blur(8px) !important; }',
+          'main a[href^="/"][role="link"] span { filter: blur(8px) !important; }',
+        ],
+      },
     ],
   },
   {
@@ -175,7 +192,7 @@ const FOCO_SITES = [
     label: "X",
     hosts: ["x.com", "twitter.com"],
     // Optional order of the popup sub-headings; groups not listed follow in order of first appearance.
-    groups: ["Sidebar", "Home", "Posts", "Right column", "Floating buttons", "Appearance"],
+    groups: ["Sidebar", "Home", "Posts", "Right column", "Floating buttons", "Appearance", "Privacy"],
     options: [
       {
         id: "sidebar-home",
@@ -448,6 +465,26 @@ const FOCO_SITES = [
         ],
         rules: (hex) => [
           `html::before { content: ""; position: fixed; inset: 0; z-index: 2147483647; pointer-events: none; background: #${hex}; mix-blend-mode: lighten; }`,
+        ],
+      },
+      {
+        // Blurs faces, names, text and media so screenshots show only the layout.
+        id: "screenshot-mode",
+        group: "Privacy",
+        label: "Screenshot mode (blur personal content)",
+        default: false,
+        rules: [
+          '[data-testid="Tweet-User-Avatar"] { filter: blur(8px) !important; }',
+          '[data-testid^="UserAvatar-Container"] { filter: blur(8px) !important; }',
+          '[data-testid="User-Name"] { filter: blur(8px) !important; }',
+          '[data-testid="tweetText"] { filter: blur(8px) !important; }',
+          '[data-testid="tweetPhoto"] { filter: blur(8px) !important; }',
+          '[data-testid="videoPlayer"] { filter: blur(8px) !important; }',
+          '[data-testid="card.wrapper"] { filter: blur(8px) !important; }',
+          '[data-testid="SideNav_AccountSwitcher_Button"] { filter: blur(8px) !important; }',
+          '[data-testid="UserCell"] { filter: blur(8px) !important; }',
+          '[data-testid="trend"] { filter: blur(8px) !important; }',
+          '[data-testid="socialContext"] { filter: blur(8px) !important; }',
         ],
       },
     ],
