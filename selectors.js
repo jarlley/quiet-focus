@@ -92,7 +92,7 @@ const FOCO_SITES = [
         label: "Always \"Following\" (hide feed tabs)",
         default: true,
         // The tabs have no link or attribute to select them by, so they are found by
-        // their text: the smallest element holding both, plus wrappers with nothing else.
+        // their text: the smallest element holding both, plus every wrapper with no content.
         match: (root) => {
           const forYou = ["For you", "Para si", "Para você"];
           const following = ["Following", "A seguir", "Seguindo"];
@@ -106,7 +106,12 @@ const FOCO_SITES = [
           let box = a.parentElement;
           while (box && !box.contains(b)) box = box.parentElement;
           if (!box || box.querySelector("article, img, video")) return [];
-          while (box.parentElement && box.parentElement.children.length === 1) box = box.parentElement;
+          // Climb through wrappers (and their spacers) up to just below the one that also
+          // holds the stories or posts, so the reserved height goes with the tabs.
+          const content = "article, img, video, canvas, [data-pagelet]";
+          while (box.parentElement && box.parentElement !== root.body && !box.parentElement.matches("main") && !box.parentElement.querySelector(content)) {
+            box = box.parentElement;
+          }
           return [box];
         },
         redirect: (url) =>
