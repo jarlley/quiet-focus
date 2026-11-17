@@ -18,6 +18,7 @@
   let observer = null;
   let sweepQueued = false;
   let matchers = [];
+  let redirects = [];
 
   function valueOf(state, opt) {
     const saved = (state.options || {})[`${site.id}.${opt.id}`];
@@ -57,12 +58,31 @@
   // JS fallback (only for options with `match`).
   function sweep() {
     sweepQueued = false;
+    followRedirects();
     for (const match of matchers) {
       let found = [];
       try {
         found = match(document) || [];
       } catch (_) {}
       for (const el of found) el.setAttribute(HIDDEN_ATTR, "");
+    }
+  }
+
+  // Options with `redirect(url)` send the page elsewhere; checked on load and on every
+  // DOM change, since these sites navigate without reloading.
+  let lastHref = "";
+  function followRedirects() {
+    if (!redirects.length || location.href === lastHref) return;
+    lastHref = location.href;
+    for (const redirect of redirects) {
+      let to = null;
+      try {
+        to = redirect(new URL(location.href));
+      } catch (_) {}
+      if (to && to !== location.href) {
+        location.replace(to);
+        return;
+      }
     }
   }
 
@@ -94,7 +114,11 @@
     matchers = active
       .filter((e) => typeof e.opt.match === "function")
       .map((e) => e.opt.match);
-    if (matchers.length) {
+    redirects = active
+      .filter((e) => typeof e.opt.redirect === "function")
+      .map((e) => e.opt.redirect);
+    lastHref = "";
+    if (matchers.length || redirects.length) {
       startObserver();
       queueSweep();
     } else {

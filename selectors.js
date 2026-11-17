@@ -13,7 +13,9 @@
 //                                   // `rules` becomes (value) => [...]; "" (default) is off
 //     default: false,               // optional; hidden by default unless set to false
 //     match: (root) => [...],       // optional; last resort when CSS is not enough
-//   }                               // (returns elements; starts a MutationObserver)
+//                                   // (returns elements; starts a MutationObserver)
+//     redirect: (url) => "...",     // optional; given a URL, returns where to go instead (or null)
+//   }
 //
 // New options go at the END of the site's list: the popup shows them in this order.
 //
@@ -82,6 +84,20 @@ const FOCO_SITES = [
         label: "Notifications",
         default: false,
         css: igIcon("Notifications", "Notificações"),
+      },
+      {
+        // Hides the "For you / Following" tabs and always opens the Following feed.
+        id: "feed-following-only",
+        group: "Feed",
+        label: "Always \"Following\" (hide feed tabs)",
+        default: true,
+        css: [
+          'main div:has(a[href*="variant=following"]):not(:has(article)):not(:has([data-pagelet="story_tray"]))',
+        ],
+        redirect: (url) =>
+          url.pathname === "/" && url.searchParams.get("variant") !== "following"
+            ? `${url.origin}/?variant=following`
+            : null,
       },
       {
         id: "feed-stories",
