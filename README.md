@@ -2,6 +2,14 @@
 
 Chromium extension (Manifest V3) that hides distracting elements on Instagram and X (YouTube is set up, with no options yet). Works in Chrome, Edge and Brave.
 
+## Screenshots
+
+Taken with **Screenshot mode** on, which blurs names, faces and post content.
+
+![Instagram with Quiet Focus: a minimal sidebar, no feed tabs, the Following feed](docs/instagram.webp)
+
+![X with Quiet Focus: a trimmed sidebar and right column](docs/x.webp)
+
 ## What it can do
 
 **X**
@@ -11,11 +19,13 @@ Chromium extension (Manifest V3) that hides distracting elements on Instagram an
 - Posts: hide reply/repost/like/view counts (icons only).
 - Floating Grok and Messages buttons.
 - Appearance: remove divider lines, use the system font, pick a dark background colour.
+- Privacy: screenshot mode (blurs names, faces and post content).
 
 **Instagram**
 - Sidebar: Home, Search, Explore, Reels, Messages, Notifications.
 - Feed: always open "Following" (the For you / Following tabs are hidden), stories, like and comment counts.
 - Right column: "Suggested for you" and the footer.
+- Privacy: screenshot mode (blurs names, faces and post content).
 
 ## Install
 
