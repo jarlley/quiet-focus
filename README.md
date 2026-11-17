@@ -1,6 +1,6 @@
 # Quiet Focus
 
-Chromium extension (Manifest V3) that hides distracting elements on Instagram and X (YouTube is set up, with no options yet). Works in Chrome, Edge and Brave.
+Chromium extension (Manifest V3) that hides distracting elements on Instagram, X and Gmail (YouTube is set up, with no options yet). Works in Chrome, Edge and Brave.
 
 More sites will be added over time.
 
@@ -28,6 +28,11 @@ Taken with **Screenshot mode** on, which blurs names, faces and post content.
 - Feed: always open "Following" (the For you / Following tabs are hidden), stories, like and comment counts.
 - Right column: "Suggested for you" and the footer.
 - Privacy: screenshot mode (blurs names, faces and post content).
+
+**Gmail**
+- Sidebar: Compose button, any folder link (Starred, Sent, Drafts…), unread counts.
+- Inbox: category tabs.
+- Right side panel (Calendar, Keep, Tasks…) and the Gemini button.
 
 ## Install
 
