@@ -352,6 +352,26 @@ const FOCO_SITES = [
         ],
       },
       {
+        // Gmail marks its main toolbar with gh="tm": select box, refresh, more, pagination
+        // and the split-pane / input-tools arrows on the right.
+        id: "toolbar",
+        group: "Inbox",
+        label: "Toolbar (select, refresh, more…)",
+        default: false,
+        css: ['[gh="tm"]'],
+      },
+      {
+        id: "empty-message",
+        group: "Inbox",
+        label: "\"No new mail!\" message",
+        default: false,
+        css: ['[role="main"] td.TC'],
+        match: (root) =>
+          [...root.querySelectorAll('[role="main"] td, [role="main"] div')].filter(
+            (el) => !el.children.length && /^(No new mail!|Nenhum e-mail novo!|Não há novos e-mails!|Sem novos e-mails!)$/.test(el.textContent.trim())
+          ),
+      },
+      {
         id: "toolbar-split-pane",
         group: "Inbox",
         label: "Split pane button",
@@ -359,7 +379,9 @@ const FOCO_SITES = [
         css: [
           '[data-tooltip*="split pane"]', '[aria-label*="split pane"]',
           '[data-tooltip*="painel dividido"]', '[aria-label*="painel dividido"]',
-          '[role="button"]:has(> * > [data-tooltip*="split pane"])',
+          // the dropdown arrow next to it shares the parent
+          'div:has(> [data-tooltip*="split pane"])', 'div:has(> [aria-label*="split pane"])',
+          'div:has(> [data-tooltip*="painel dividido"])',
         ],
       },
       {
