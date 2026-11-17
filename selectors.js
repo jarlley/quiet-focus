@@ -250,6 +250,13 @@ const FOCO_SITES = [
         ],
       },
       {
+        // Reply, repost, like and view counts live in this container inside the action bar.
+        id: "post-counts-hide",
+        label: "Posts: action counts (hide, icons only)",
+        default: false,
+        css: ['article [role="group"] [data-testid="app-text-transition-container"]'],
+      },
+      {
         // X sets TwitterChirp on <body> and again on many elements, so every element is overridden.
         // The emoji families stay at the end of the stack so emoji still render.
         id: "system-font",
