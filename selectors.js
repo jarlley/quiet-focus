@@ -351,6 +351,45 @@ const FOCO_SITES = [
           'header [aria-label="Apps do Google"]',
         ],
       },
+      {
+        id: "toolbar-split-pane",
+        group: "Inbox",
+        label: "Split pane button",
+        default: false,
+        css: [
+          '[data-tooltip*="split pane"]', '[aria-label*="split pane"]',
+          '[data-tooltip*="painel dividido"]', '[aria-label*="painel dividido"]',
+          '[role="button"]:has(> * > [data-tooltip*="split pane"])',
+        ],
+      },
+      {
+        id: "toolbar-input-tools",
+        group: "Inbox",
+        label: "Input tools (keyboard) button",
+        default: false,
+        css: [
+          '#itamenu',
+          '[data-tooltip*="Input Tools"]', '[aria-label*="Input Tools"]',
+          '[data-tooltip*="Ferramentas de introdução"]', '[data-tooltip*="Ferramentas de entrada"]',
+        ],
+      },
+      {
+        // Storage bar, Terms · Privacy and "Last account activity". No stable attributes,
+        // so it is the smallest element holding both the Terms link and the storage link.
+        id: "footer",
+        group: "Inbox",
+        label: "Footer (storage, Terms, account activity)",
+        default: false,
+        match: (root) => {
+          const terms = root.querySelector('[role="main"] a[href*="/terms"], [role="main"] ~ * a[href*="/terms"]') ||
+            [...root.querySelectorAll('a[href*="/terms"]')].pop();
+          if (!terms) return [];
+          let box = terms.parentElement;
+          while (box && !box.querySelector('a[href*="storage"]')) box = box.parentElement;
+          if (!box || box.querySelector('[role="main"] tr, [role="navigation"]')) return [];
+          return [box];
+        },
+      },
     ],
   },
   {
