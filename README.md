@@ -6,8 +6,6 @@ More sites will be added over time.
 
 ## Screenshots
 
-Taken with **Screenshot mode** on, which blurs names, faces and post content.
-
 ![Instagram with Quiet Focus: a minimal sidebar, no feed tabs, the Following feed](docs/instagram.webp)
 
 ![X with Quiet Focus: a trimmed sidebar and right column](docs/x.webp)
