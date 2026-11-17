@@ -358,18 +358,20 @@ const FOCO_SITES = [
         group: "Inbox",
         label: "Toolbar (select, refresh, more…)",
         default: false,
-        css: ['[gh="tm"]'],
+        // Also every wrapper of it that holds no list, so its reserved height and the
+        // divider under it go too.
+        css: ['[gh="tm"]', '[role="main"] div:has([gh="tm"]):not(:has(table)):not(:has([role="grid"]))'],
       },
       {
         id: "empty-message",
         group: "Inbox",
         label: "\"No new mail!\" message",
         default: false,
-        css: ['[role="main"] td.TC'],
+        css: ['[role="main"] td.TC', '[role="main"] table:has(td.TC)'],
         match: (root) =>
           [...root.querySelectorAll('[role="main"] td, [role="main"] div')].filter(
             (el) => !el.children.length && /^(No new mail!|Nenhum e-mail novo!|Não há novos e-mails!|Sem novos e-mails!)$/.test(el.textContent.trim())
-          ),
+          ).map((el) => el.closest("table") || el),
       },
       {
         id: "toolbar-split-pane",
