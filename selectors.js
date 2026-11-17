@@ -318,6 +318,16 @@ const FOCO_SITES = [
           'header [data-rp-onramp-container]',
         ],
       },
+      {
+        id: "settings",
+        group: "Top bar",
+        label: "Settings (gear) button",
+        default: false,
+        css: [
+          'header [data-tooltip="Settings"]', 'header [data-tooltip="Configurações"]',
+          'header [data-tooltip="Definições"]',
+        ],
+      },
     ],
   },
   {
