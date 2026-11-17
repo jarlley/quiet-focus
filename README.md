@@ -12,6 +12,8 @@ Taken with **Screenshot mode** on, which blurs names, faces and post content.
 
 ![X with Quiet Focus: a trimmed sidebar and right column](docs/x.webp)
 
+![Gmail with Quiet Focus: only search, compose and a few folders](docs/gmail.webp)
+
 ## What it can do
 
 **X**
@@ -30,9 +32,12 @@ Taken with **Screenshot mode** on, which blurs names, faces and post content.
 - Privacy: screenshot mode (blurs names, faces and post content).
 
 **Gmail**
+- Top bar: Help, Settings, Gemini, Upgrade and Google apps buttons.
+- Tab title: show only the folder name (hides your email address).
 - Sidebar: Compose button, any folder link (Starred, Sent, Drafts…), unread counts.
-- Inbox: category tabs.
-- Right side panel (Calendar, Keep, Tasks…) and the Gemini button.
+- Inbox: toolbar, category tabs, split pane and input tools buttons, the "No new mail!" message, the footer.
+- Right side panel (Calendar, Keep, Tasks…).
+- Appearance: background colour for the light or dark theme.
 
 ## Install
 
