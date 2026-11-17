@@ -66,6 +66,16 @@ h1 { margin: 0; font-size: 16px; font-weight: 600; }
 }
 .group[open] summary::before { transform: rotate(45deg); }
 .group summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.site-icon {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
 .group .count { margin-left: auto; font-size: 12px; font-weight: 400; color: var(--muted); }
 .group[open] { padding-bottom: 8px; }
 

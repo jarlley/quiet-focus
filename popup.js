@@ -74,6 +74,24 @@ function makeRow(site, opt) {
   return row;
 }
 
+// Simple monochrome glyphs per site (inline SVG, drawn with currentColor).
+const SITE_ICONS = {
+  youtube:
+    '<rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5v5l4.5-2.5z" fill="currentColor" stroke="none"/>',
+  instagram:
+    '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="0.6" fill="currentColor"/>',
+  x: '<path d="M5 4l14 16M19 4L5 20"/>',
+};
+
+function siteIcon(id) {
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("viewBox", "0 0 24 24");
+  svg.setAttribute("aria-hidden", "true");
+  svg.classList.add("site-icon");
+  svg.innerHTML = SITE_ICONS[id] || '<circle cx="12" cy="12" r="9"/>';
+  return svg;
+}
+
 const countEls = {};
 function updateCount(site) {
   const el = countEls[site.id];
@@ -104,7 +122,7 @@ function render() {
     const count = document.createElement("span");
     count.className = "count";
     countEls[site.id] = count;
-    title.append(name, count);
+    title.append(siteIcon(site.id), name, count);
     group.append(title);
     updateCount(site);
 
