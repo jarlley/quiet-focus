@@ -19,6 +19,7 @@
   let sweepQueued = false;
   let matchers = [];
   let redirects = [];
+  let titles = [];
 
   function valueOf(state, opt) {
     const saved = (state.options || {})[`${site.id}.${opt.id}`];
@@ -59,6 +60,12 @@
   function sweep() {
     sweepQueued = false;
     followRedirects();
+    for (const fix of titles) {
+      try {
+        const t = fix(document.title);
+        if (t != null && t !== document.title) document.title = t;
+      } catch (_) {}
+    }
     for (const match of matchers) {
       let found = [];
       try {
@@ -95,7 +102,7 @@
   function startObserver() {
     if (observer) return;
     observer = new MutationObserver(queueSweep);
-    observer.observe(document.documentElement, { childList: true, subtree: true });
+    observer.observe(document.documentElement, { childList: true, subtree: true, characterData: titles.length > 0 });
   }
 
   function stopObserver() {
@@ -117,8 +124,11 @@
     redirects = active
       .filter((e) => typeof e.opt.redirect === "function")
       .map((e) => e.opt.redirect);
+    titles = active
+      .filter((e) => typeof e.opt.title === "function")
+      .map((e) => e.opt.title);
     lastHref = "";
-    if (matchers.length || redirects.length) {
+    if (matchers.length || redirects.length || titles.length) {
       startObserver();
       queueSweep();
     } else {

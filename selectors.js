@@ -15,6 +15,7 @@
 //     match: (root) => [...],       // optional; last resort when CSS is not enough
 //                                   // (returns elements; starts a MutationObserver)
 //     redirect: (url) => "...",     // optional; given a URL, returns where to go instead (or null)
+//     title: (title) => "...",      // optional; rewrites the tab title (or null to leave it)
 //   }
 //
 // New options go at the END of the site's list: the popup shows them in this order.
@@ -195,6 +196,14 @@ const FOCO_SITES = [
     // by long-lived class names, which Google may change.
     groups: ["Top bar", "Sidebar", "Inbox", "Right side"],
     options: [
+      {
+        // "Inbox (3) - name@gmail.com - Gmail" becomes "Inbox (3)".
+        id: "tab-title",
+        group: "Top bar",
+        label: "Tab title: folder only (hide email)",
+        default: true,
+        title: (t) => t.replace(/\s+[-–]\s+\S+@\S+[\s\S]*$/, ""),
+      },
       {
         id: "compose",
         group: "Sidebar",
