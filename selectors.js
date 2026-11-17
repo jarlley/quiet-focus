@@ -299,6 +299,28 @@ const FOCO_SITES = [
           'header a[href*="gemini.google.com"]',
         ],
       },
+      {
+        id: "support",
+        group: "Top bar",
+        label: "Help (?) button",
+        default: false,
+        css: [
+          '[aria-label="Support"]', '[aria-label="Suporte"]', '[aria-label="Ajuda"]', '[aria-label="Help"]',
+          '[data-tooltip="Support"]', '[data-tooltip="Suporte"]', '[data-tooltip="Ajuda"]', '[data-tooltip="Help"]',
+        ],
+      },
+      {
+        id: "upgrade",
+        group: "Top bar",
+        label: "Upgrade button",
+        default: false,
+        css: [
+          'header a[href*="one.google.com"]',
+          'header *:has(> a[href*="one.google.com"])',
+          '[aria-label*="Upgrade"]',
+          '[aria-label*="Fazer upgrade"]',
+        ],
+      },
     ],
   },
   {
