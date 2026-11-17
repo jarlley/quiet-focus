@@ -324,8 +324,22 @@ const FOCO_SITES = [
         label: "Settings (gear) button",
         default: false,
         css: [
+          // Class FI is the gear's wrapper; the tooltip attribute is a fallback.
+          'header .gb_v > .FI',
           'header [data-tooltip="Settings"]', 'header [data-tooltip="Configurações"]',
           'header [data-tooltip="Definições"]',
+        ],
+      },
+      {
+        id: "apps",
+        group: "Top bar",
+        label: "Google apps (grid) button",
+        default: false,
+        css: [
+          'header a[href*="/about/products"]',
+          'header div:has(> a[href*="/about/products"])',
+          'header [aria-label="Google apps"]', 'header [aria-label="Apps Google"]',
+          'header [aria-label="Apps do Google"]',
         ],
       },
     ],
