@@ -133,6 +133,8 @@
   function apply(state) {
     const active = activeOptions(state);
     runSetups(active);
+    // Start clean: elements hidden by an option that was just turned off must come back.
+    document.querySelectorAll(`[${HIDDEN_ATTR}]`).forEach((el) => el.removeAttribute(HIDDEN_ATTR));
     ensureStyleEl().textContent = buildCss(active);
 
     matchers = active
