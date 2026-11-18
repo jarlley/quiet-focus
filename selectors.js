@@ -121,6 +121,23 @@ const FOCO_SITES = [
         css: ["ytd-guide-renderer #footer"],
       },
       {
+        id: "shorts-shelf",
+        group: "Center",
+        label: "Shorts shelf",
+        default: true,
+        css: [
+          "ytd-rich-section-renderer:has(ytd-rich-shelf-renderer[is-shorts])",
+          "ytd-reel-shelf-renderer",
+          "ytd-rich-shelf-renderer[is-shorts]",
+        ],
+        // Fallback: any shelf whose title is "Shorts".
+        match: (root) =>
+          [...root.querySelectorAll("ytd-rich-section-renderer, ytd-item-section-renderer")].filter((el) => {
+            const t = el.querySelector("#title, #title-text");
+            return t && /^\s*shorts\s*$/i.test(t.textContent || "");
+          }),
+      },
+      {
         id: "history-off-nudge",
         group: "Center",
         label: "\"Your watch history is off\" message",
