@@ -933,6 +933,30 @@ const FOCO_SITES = [
         ],
       },
       {
+        id: "right-products",
+        group: "Right",
+        label: "Products menu (grid button)",
+        default: true,
+        css: [
+          '[data-name="products"]',
+          '[data-name="products-button"]',
+          '.widgetbar-tabs button[aria-label*="roducts"]',
+          '.widgetbar-tabs [data-tooltip*="roducts"]',
+        ],
+      },
+      {
+        id: "right-help",
+        group: "Right",
+        label: "Help (?) button",
+        default: true,
+        css: [
+          '[data-name="help-button"]',
+          '[data-name="help"]',
+          '.widgetbar-tabs button[aria-label*="Help"]',
+          '.widgetbar-tabs [data-tooltip*="Help"]',
+        ],
+      },
+      {
         // Keeps the bottom bar but shows only its clock ("14:04:40 UTC-5"): everything in
         // the bar that is not on the path to the clock is marked and hidden. Class names
         // are generated, so the bar is found from the clock's text.
