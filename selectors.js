@@ -832,6 +832,13 @@ const FOCO_SITES = [
     groups: ["Top", "Left", "Center", "Right", "Bottom", "General"],
     options: [
       {
+        id: "top-compare",
+        group: "Top",
+        label: "Compare / add symbol (+)",
+        default: true,
+        css: ["#header-toolbar-compare", '[data-name="header-toolbar-compare"]'],
+      },
+      {
         id: "top-chart-style",
         group: "Top",
         label: "Chart type button",
