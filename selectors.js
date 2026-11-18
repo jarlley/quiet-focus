@@ -891,7 +891,7 @@ const FOCO_SITES = [
         id: "price-scale",
         group: "Right",
         label: "Price scale (numbers)",
-        default: false,
+        default: true,
         rules: [
           '.price-axis-container, td[class*="price-axis"], .price-axis { visibility: hidden !important; }',
         ],
