@@ -70,6 +70,13 @@ function bgOption(def = "") {
   };
 }
 
+// TradingView top toolbar: hide a button together with its wrapper (which also holds the
+// separator line), unless that wrapper also holds buttons we keep.
+const TV_KEEP = "#header-toolbar-replay, #header-toolbar-symbol-search, #header-toolbar-intervals, #header-toolbar-undo-redo, #header-toolbar-save-load, #header-toolbar-fullscreen, #header-toolbar-screenshot";
+function tvTop(id) {
+  return [`#${id}`, `div:has(> #${id}):not(:has(${TV_KEEP}))`];
+}
+
 const FOCO_SITES = [
   {
     id: "youtube",
@@ -827,28 +834,28 @@ const FOCO_SITES = [
         group: "Top",
         label: "Compare / add symbol (+)",
         default: true,
-        css: ["#header-toolbar-compare", '[data-name="header-toolbar-compare"]'],
+        css: [...tvTop("header-toolbar-compare"), '[data-name="header-toolbar-compare"]'],
       },
       {
         id: "top-chart-style",
         group: "Top",
         label: "Chart type button",
         default: true,
-        css: ["#header-toolbar-chart-styles", '[data-name="header-toolbar-chart-styles"]'],
+        css: [...tvTop("header-toolbar-chart-styles"), '[data-name="header-toolbar-chart-styles"]'],
       },
       {
         id: "top-indicators",
         group: "Top",
         label: "Indicators",
         default: true,
-        css: ["#header-toolbar-indicators", '[data-name="open-indicators-dialog"]'],
+        css: [...tvTop("header-toolbar-indicators"), '[data-name="open-indicators-dialog"]'],
       },
       {
         id: "top-alert",
         group: "Top",
         label: "Alert",
         default: true,
-        css: ["#header-toolbar-alerts", '[data-name="set-alert-button"]'],
+        css: [...tvTop("header-toolbar-alerts"), '[data-name="set-alert-button"]'],
       },
       {
         id: "top-replay-icon-only",
