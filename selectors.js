@@ -907,6 +907,10 @@ const FOCO_SITES = [
         rules: ["[data-foco-tv-off] { display: none !important; }"],
         setup: () => {
           const OFF = "data-foco-tv-off";
+          const isDateRanges = (n) =>
+            n.matches('[data-name="date-ranges-menu"], [class*="dateRange"], [data-name="go-to-date"]') ||
+            !!n.querySelector('[data-name="date-ranges-menu"], [class*="dateRange"], [data-name="go-to-date"]') ||
+            /^(1D|5D|1M|3M|6M|YTD|1Y|5Y|All)/.test((n.textContent || "").trim());
           const tick = () => {
             const src = [...document.querySelectorAll('[class*="js-button-text"]')].find((el) =>
               /^\s*\d{1,2}:\d{2}(:\d{2})?\s*(UTC|GMT)/.test(el.textContent || "")
@@ -919,7 +923,9 @@ const FOCO_SITES = [
               const r = parent.getBoundingClientRect();
               if (r.height >= 60) break;
               for (const sib of parent.children) {
-                if (sib !== el && !sib.hasAttribute(OFF)) sib.setAttribute(OFF, "");
+                // Date ranges have their own option ("Date ranges…"), so leave them to it.
+                if (sib === el || sib.hasAttribute(OFF) || isDateRanges(sib)) continue;
+                sib.setAttribute(OFF, "");
               }
               el = parent;
               if (r.width > innerWidth * 0.5) break;
