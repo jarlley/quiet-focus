@@ -882,6 +882,18 @@ const FOCO_SITES = [
         css: [...tvTop("header-toolbar-properties"), '[data-name="header-toolbar-properties"]'],
       },
       {
+        id: "top-publish",
+        group: "Top",
+        label: "Publish idea (light bulb)",
+        default: true,
+        css: [
+          ...tvTop("header-toolbar-publish"),
+          '[data-name="header-toolbar-publish"]',
+          '[data-name="publish-button"]',
+          'button[aria-label*="Publish"]',
+        ],
+      },
+      {
         id: "top-compare",
         group: "Top",
         label: "Compare / add symbol (+)",
