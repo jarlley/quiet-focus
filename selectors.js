@@ -76,6 +76,23 @@ const TV_KEEP = "#header-toolbar-replay, #header-toolbar-symbol-search, #header-
 function tvTop(id) {
   return [`#${id}`, `div:has(> #${id}):not(:has(${TV_KEEP}))`];
 }
+// Separator lines left next to each other (or next to nothing) once buttons are hidden.
+function tvExtraSeparators(root) {
+  const bar = root.querySelector("#header-toolbar, .layout__area--top");
+  if (!bar) return [];
+  const out = [];
+  for (const sep of bar.querySelectorAll('[class*="separator"]')) {
+    if (sep.hasAttribute("data-foco-hidden")) continue;
+    // Walk back through visible content until another separator or real content.
+    let prev = sep.previousElementSibling;
+    while (prev && (getComputedStyle(prev).display === "none" || prev.getBoundingClientRect().width === 0)) {
+      prev = prev.previousElementSibling;
+    }
+    const isSep = (el) => el && (/separator/.test(el.className) || (el.getBoundingClientRect().width <= 2 && !el.textContent.trim()));
+    if (!prev || isSep(prev) || (prev.lastElementChild && isSep(prev.lastElementChild) && !prev.textContent.trim())) out.push(sep);
+  }
+  return out;
+}
 
 const FOCO_SITES = [
   {
@@ -849,6 +866,7 @@ const FOCO_SITES = [
         label: "Indicators",
         default: true,
         css: [...tvTop("header-toolbar-indicators"), '[data-name="open-indicators-dialog"]'],
+        match: tvExtraSeparators,
       },
       {
         id: "top-alert",
