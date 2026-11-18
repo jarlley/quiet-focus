@@ -36,7 +36,24 @@ const FOCO_SITES = [
     id: "youtube",
     label: "YouTube",
     hosts: ["youtube.com"],
-    options: [],
+    groups: ["Top", "Left", "Center", "Right", "Bottom", "General"],
+    options: [
+      {
+        id: "history-off-nudge",
+        group: "Center",
+        label: "\"Your watch history is off\" message",
+        default: true,
+        css: [
+          "ytd-rich-section-renderer:has(ytd-feed-nudge-renderer)",
+          "ytd-feed-nudge-renderer",
+        ],
+        // Fallback in case YouTube renames the element: find the box by its text.
+        match: (root) =>
+          [...root.querySelectorAll("ytd-browse #contents > *, ytd-rich-grid-renderer > *")].filter((el) =>
+            /watch history is off/i.test(el.textContent || "") && el.querySelectorAll("ytd-rich-item-renderer").length === 0
+          ),
+      },
+    ],
   },
   {
     id: "instagram",
