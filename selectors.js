@@ -823,6 +823,36 @@ const FOCO_SITES = [
     groups: ["Top", "Left", "Center", "Right", "Bottom", "General"],
     options: [
       {
+        // Hides the whole bottom bar (date ranges, time, ETH, B-ADJ) and, if a place is
+        // chosen, keeps only the clock there. The bar is made invisible rather than removed
+        // so the clock inside it can still be shown with `visibility: visible`.
+        id: "bottom-bar",
+        group: "Bottom",
+        label: "Bottom bar (keep the clock)",
+        offLabel: "Show bar",
+        default: "",
+        choices: [
+          { value: "chart-bottom", label: "Hide bar, clock at chart corner" },
+          { value: "top", label: "Hide bar, clock in top bar" },
+          { value: "none", label: "Hide bar and clock" },
+        ],
+        rules: (v) => {
+          const bar = '.layout__area--bottom, #footer-chart-panel, [class*="chart-toolbar-bottom"]';
+          const clock = '[data-name="time-zone-menu"]';
+          const out = [
+            `:is(${bar}) { visibility: hidden !important; max-height: 0 !important; min-height: 0 !important; overflow: visible !important; border: 0 !important; }`,
+          ];
+          if (v === "none") return out;
+          const pos = v === "top"
+            ? "top: 10px; right: 200px;"
+            : "bottom: 12px; right: 90px;";
+          out.push(
+            `${clock} { visibility: visible !important; position: fixed !important; ${pos} z-index: 100 !important; opacity: 0.8; }`
+          );
+          return out;
+        },
+      },
+      {
         id: "bottom-date-ranges",
         group: "Bottom",
         label: "Date ranges (1D, 5D… All) and Go to date",
