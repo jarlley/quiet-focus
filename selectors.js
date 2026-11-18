@@ -957,18 +957,6 @@ const FOCO_SITES = [
         ],
       },
       {
-        id: "chart-logo",
-        group: "Center",
-        label: "TradingView logo on the chart",
-        default: true,
-        css: [
-          "#tv-attr-logo",
-          '.chart-container a[class*="logo"]',
-          '.chart-markup-table a[class*="logo"]',
-          '.layout__area--center a[href*="tradingview.com"][class*="logo"]',
-        ],
-      },
-      {
         // Keeps the bottom bar but shows only its clock ("14:04:40 UTC-5"): everything in
         // the bar that is not on the path to the clock is marked and hidden. Class names
         // are generated, so the bar is found from the clock's text.
