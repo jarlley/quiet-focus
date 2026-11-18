@@ -886,17 +886,6 @@ const FOCO_SITES = [
         ],
       },
       {
-        // The scale is drawn on a canvas whose width the chart reserves itself, so it is made
-        // invisible: the numbers go away, the empty strip stays.
-        id: "price-scale",
-        group: "Right",
-        label: "Price scale (numbers)",
-        default: true,
-        rules: [
-          '.price-axis-container, td[class*="price-axis"], .price-axis { visibility: hidden !important; }',
-        ],
-      },
-      {
         // Keeps the bottom bar but shows only its clock ("14:04:40 UTC-5"): everything in
         // the bar that is not on the path to the clock is marked and hidden. Class names
         // are generated, so the bar is found from the clock's text.
