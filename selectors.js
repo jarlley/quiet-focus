@@ -816,4 +816,37 @@ const FOCO_SITES = [
       },
     ],
   },
+  {
+    id: "tradingview",
+    label: "TradingView",
+    hosts: ["tradingview.com"],
+    groups: ["Top", "Left", "Center", "Right", "Bottom", "General"],
+    options: [
+      {
+        id: "bottom-date-ranges",
+        group: "Bottom",
+        label: "Date ranges (1D, 5D… All) and Go to date",
+        default: true,
+        css: [
+          '[data-name="date-ranges-menu"]',
+          '[class*="dateRangeExpanded"]',
+          '[class*="dateRangeCollapsed"]',
+          '[data-name="go-to-date"]',
+          '[data-name="go-to-date"] + [class*="separator"]',
+        ],
+        // Fallback: the bottom-bar button group whose buttons are exactly the ranges.
+        match: (root) => {
+          const bar = root.querySelector("#footer-chart-panel, [class*='chart-toolbar-bottom']");
+          if (!bar) return [];
+          const out = [];
+          for (const b of bar.querySelectorAll("button, [role='button']")) {
+            const t = (b.textContent || "").trim();
+            if (/^(1D|5D|1M|3M|6M|YTD|1Y|5Y|All)$/.test(t)) out.push(b);
+          }
+          return out;
+        },
+      },
+      bgOption(),
+    ],
+  },
 ];
