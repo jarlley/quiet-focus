@@ -147,3 +147,6 @@ body.disabled .group { opacity: 0.45; }
   clip: rect(0 0 0 0);
   white-space: nowrap;
 }
+
+.group.off > :not(summary) { opacity: 0.45; }
+.group.off summary .site-icon, .group.off summary > span { opacity: 0.45; }

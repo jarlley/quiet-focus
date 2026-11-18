@@ -123,7 +123,18 @@ function render() {
     const count = document.createElement("span");
     count.className = "count";
     countEls[site.id] = count;
-    title.append(siteIcon(site.id), name, count);
+    const siteOn = state.sites?.[site.id] !== false;
+    group.classList.toggle("off", !siteOn);
+    const { el: siteSwitch, input: siteInput } = makeSwitch(siteOn, (on) => {
+      state.sites = { ...(state.sites || {}), [site.id]: on };
+      group.classList.toggle("off", !on);
+      save();
+    });
+    siteInput.setAttribute("aria-label", `${site.label}: on/off`);
+    // Clicking the switch must not expand/collapse the section.
+    siteSwitch.addEventListener("click", (e) => e.stopPropagation());
+    siteSwitch.classList.add("site-switch");
+    title.append(siteIcon(site.id), name, count, siteSwitch);
     group.append(title);
     updateCount(site);
 
@@ -174,13 +185,13 @@ function currentTabHost() {
 Promise.all([chrome.storage.sync.get(STORAGE_KEY), currentTabHost()]).then(([res, host]) => {
   const site = FOCO_SITES.find((s) => s.hosts.some((h) => host === h || host.endsWith("." + h)));
   currentSiteId = site ? site.id : null;
-  state = { all: true, options: {}, ...(res[STORAGE_KEY] || {}) };
+  state = { all: true, sites: {}, options: {}, ...(res[STORAGE_KEY] || {}) };
   render();
 });
 
 chrome.storage.onChanged.addListener((changes, area) => {
   if (area === "sync" && changes[STORAGE_KEY]?.newValue) {
-    state = { all: true, options: {}, ...changes[STORAGE_KEY].newValue };
+    state = { all: true, sites: {}, options: {}, ...changes[STORAGE_KEY].newValue };
     render();
   }
 });

@@ -1,7 +1,7 @@
 // Runs at document_start. Injects a <style> with the rules of the active options
 // and reacts to chrome.storage.sync changes without reloading the page.
 // State stored in chrome.storage.sync["foco"]:
-//   { all: boolean, options: { "<site>.<option>": boolean | string } }
+//   { all: boolean, sites: { "<site>": boolean }, options: { "<site>.<option>": boolean | string } }
 // Switch options store a boolean; choice options (with `choices`) store the chosen value ("" = off).
 
 (() => {
@@ -28,7 +28,7 @@
 
   // [{ opt, value }] for every option that is currently on.
   function activeOptions(state) {
-    if (!state || state.all === false) return [];
+    if (!state || state.all === false || (state.sites || {})[site.id] === false) return [];
     return site.options
       .map((opt) => ({ opt, value: valueOf(state, opt) }))
       .filter((e) => e.value);
