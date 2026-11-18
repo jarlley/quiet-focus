@@ -823,33 +823,64 @@ const FOCO_SITES = [
     groups: ["Top", "Left", "Center", "Right", "Bottom", "General"],
     options: [
       {
-        // Hides the whole bottom bar (date ranges, time, ETH, B-ADJ) and, if a place is
-        // chosen, keeps only the clock there. The bar is made invisible rather than removed
-        // so the clock inside it can still be shown with `visibility: visible`.
+        // Hides the whole bottom bar (date ranges, time, ETH, B-ADJ) and shows a copy of
+        // its clock elsewhere. The bar is found from its clock ("14:04:40 UTC-5") and
+        // marked with an attribute, since its class names are generated.
         id: "bottom-bar",
         group: "Bottom",
         label: "Bottom bar (keep the clock)",
         offLabel: "Show bar",
         default: "top",
         choices: [
-          { value: "chart-bottom", label: "Hide bar, clock at chart corner" },
           { value: "top", label: "Hide bar, clock in top bar" },
+          { value: "chart-bottom", label: "Hide bar, clock at chart corner" },
           { value: "none", label: "Hide bar and clock" },
         ],
-        rules: (v) => {
-          const bar = '.layout__area--bottom, #footer-chart-panel, [class*="chart-toolbar-bottom"]';
-          const clock = '[data-name="time-zone-menu"]';
-          const out = [
-            `:is(${bar}) { visibility: hidden !important; max-height: 0 !important; min-height: 0 !important; overflow: visible !important; border: 0 !important; }`,
-          ];
-          if (v === "none") return out;
-          const pos = v === "top"
-            ? "top: 10px; right: 200px;"
-            : "bottom: 12px; right: 90px;";
-          out.push(
-            `${clock} { visibility: visible !important; position: fixed !important; ${pos} z-index: 100 !important; opacity: 0.8; }`
-          );
-          return out;
+        rules: () => ["[data-foco-tv-bar] { display: none !important; }"],
+        setup: (where) => {
+          const BAR = "data-foco-tv-bar";
+          let clock = null;
+          if (where !== "none") {
+            clock = document.createElement("div");
+            clock.id = "foco-tv-clock";
+            clock.style.cssText =
+              "position:fixed;z-index:2147483646;font:13px/1 -apple-system,BlinkMacSystemFont,'Trebuchet MS',Roboto,sans-serif;" +
+              "color:#787b86;pointer-events:none;font-variant-numeric:tabular-nums;" +
+              (where === "top" ? "top:18px;right:330px;" : "bottom:12px;right:80px;");
+          }
+          let resized = false;
+          const tick = () => {
+            const src = [...document.querySelectorAll('[class*="js-button-text"]')].find((el) =>
+              /^\s*\d{1,2}:\d{2}(:\d{2})?\s*(UTC|GMT)/.test(el.textContent || "")
+            );
+            if (!src) return;
+            if (clock) {
+              if (!clock.isConnected) document.body.appendChild(clock);
+              clock.textContent = src.textContent.trim();
+            }
+            if (!document.querySelector(`[${BAR}]`)) {
+              // Climb to the widest short ancestor: that is the bar itself.
+              let el = src, bar = null;
+              while ((el = el.parentElement) && el !== document.body) {
+                const r = el.getBoundingClientRect();
+                if (r.width > innerWidth * 0.5 && r.height > 0 && r.height < 60) bar = el;
+                if (r.height >= 60) break;
+              }
+              if (bar) {
+                bar.setAttribute(BAR, "");
+                // Let the chart grow into the freed space.
+                if (!resized) { resized = true; window.dispatchEvent(new Event("resize")); }
+              }
+            }
+          };
+          tick();
+          const timer = setInterval(tick, 500);
+          return () => {
+            clearInterval(timer);
+            if (clock) clock.remove();
+            document.querySelectorAll(`[${BAR}]`).forEach((el) => el.removeAttribute(BAR));
+            window.dispatchEvent(new Event("resize"));
+          };
         },
       },
       {

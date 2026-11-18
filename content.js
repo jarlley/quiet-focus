@@ -114,8 +114,25 @@
     );
   }
 
+  // Options with `setup(value)` run their own code; it returns a cleanup function.
+  let cleanups = [];
+  function runSetups(active) {
+    for (const undo of cleanups) {
+      try { undo(); } catch (_) {}
+    }
+    cleanups = [];
+    for (const { opt, value } of active) {
+      if (typeof opt.setup !== "function") continue;
+      try {
+        const undo = opt.setup(value);
+        if (typeof undo === "function") cleanups.push(undo);
+      } catch (_) {}
+    }
+  }
+
   function apply(state) {
     const active = activeOptions(state);
+    runSetups(active);
     ensureStyleEl().textContent = buildCss(active);
 
     matchers = active
