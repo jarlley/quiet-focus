@@ -1,6 +1,6 @@
 # Quiet Focus
 
-Chromium extension (Manifest V3) that hides distracting elements on Instagram, X and Gmail (YouTube is set up, with no options yet). Works in Chrome, Edge and Brave.
+Chromium extension (Manifest V3) that hides distracting elements on YouTube, Instagram, X and Gmail. Works in Chrome, Edge and Brave.
 
 More sites will be added over time.
 
@@ -14,13 +14,19 @@ More sites will be added over time.
 
 ## What it can do
 
+Options are grouped by where they sit on the page: Top, Left, Center, Right, Bottom and General. Every site has a **background colour** choice (light or dark theme), set per site.
+
+**YouTube**
+- Left: Shorts, the Explore and "More from YouTube" sections, Report history, the footer.
+- Center: the Shorts shelf and the "Your watch history is off" message.
+
 **X**
 - Sidebar: hide any link (Home, Explore, Grok, Premium…), the Post button, or show icons only.
 - Right column: Premium card, What's happening, Who to follow, footer, search box.
 - Home: the post box and the "For you" tab.
 - Posts: hide reply/repost/like/view counts (icons only).
 - Floating Grok and Messages buttons.
-- Appearance: remove divider lines, use the system font, pick a dark background colour.
+- Appearance: remove divider lines, use the system font.
 - Privacy: screenshot mode (blurs names, faces and post content).
 
 **Instagram**
@@ -35,7 +41,6 @@ More sites will be added over time.
 - Sidebar: Compose button, any folder link (Starred, Sent, Drafts…), unread counts.
 - Inbox: toolbar, category tabs, split pane and input tools buttons, the "No new mail!" message, the footer.
 - Right side panel (Calendar, Keep, Tasks…).
-- Appearance: background colour for the light or dark theme.
 
 ## Install
 
@@ -48,6 +53,7 @@ After changing any file, click **Reload** on the extension and reload the site's
 ## Using it
 
 - Each site is a collapsible section in the popup, with a count of active options; the site of the current tab opens by default.
+- Each site has its own on/off switch in its header.
 - A switch that is **on** hides that element.
 - The master switch at the top pauses everything without losing the individual settings.
 - Settings live in `chrome.storage.sync`, so they follow your browser profile.
