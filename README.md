@@ -1,6 +1,6 @@
 # Quiet Focus
 
-Chromium extension (Manifest V3) that hides distracting elements on YouTube, Instagram, X and Gmail. Works in Chrome, Edge and Brave.
+Chromium extension (Manifest V3) that hides distracting elements on YouTube, Instagram, X, Gmail and TradingView. Works in Chrome, Edge and Brave.
 
 More sites will be added over time.
 
@@ -41,6 +41,11 @@ Options are grouped by where they sit on the page: Top, Left, Center, Right, Bot
 - Sidebar: Compose button, any folder link (Starred, Sent, Drafts…), unread counts.
 - Inbox: toolbar, category tabs, split pane and input tools buttons, the "No new mail!" message, the footer.
 - Right side panel (Calendar, Keep, Tasks…).
+
+**TradingView**
+- Top: symbol search, chart type, compare (+), Indicators, Alert, layout, Charts (save/load), quick search, chart settings, publish idea; Replay shown as an icon only.
+- Right: products menu (grid) and Help buttons.
+- Bottom: date ranges (1D… All) and Go to date; the bottom bar can show only the clock.
 
 ## Install
 
