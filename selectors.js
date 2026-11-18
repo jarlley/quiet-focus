@@ -891,6 +891,12 @@ const FOCO_SITES = [
           '[data-name="header-toolbar-publish"]',
           '[data-name="publish-button"]',
           'button[aria-label*="Publish"]',
+          'button[aria-label*="idea" i]',
+          '[data-tooltip*="idea" i]',
+          '[data-tooltip*="Publish" i]',
+          '[data-name*="publish" i]',
+          '[data-name*="idea" i]',
+          'div:has(> button[aria-label*="idea" i]):not(:has(' + TV_KEEP + '))',
         ],
       },
       {
