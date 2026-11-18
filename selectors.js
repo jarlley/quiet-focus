@@ -31,6 +31,13 @@ const xSidebar = (sel) => `header[role="banner"] ${sel}`;
 // the UI language, so English and Portuguese are both listed.
 const igIcon = (...labels) => labels.map((l) => `a:has(svg[aria-label="${l}"])`);
 
+// YouTube sidebar: the section whose title matches `re`.
+function guideSection(root, re) {
+  return [...root.querySelectorAll("ytd-guide-section-renderer")].filter((sec) =>
+    re.test((sec.querySelector("#guide-section-title")?.textContent || "").trim())
+  );
+}
+
 const FOCO_SITES = [
   {
     id: "youtube",
@@ -38,6 +45,49 @@ const FOCO_SITES = [
     hosts: ["youtube.com"],
     groups: ["Top", "Left", "Center", "Right", "Bottom", "General"],
     options: [
+      {
+        id: "sidebar-shorts",
+        group: "Left",
+        label: "Shorts",
+        default: true,
+        css: [
+          'ytd-guide-entry-renderer:has(a[title="Shorts"])',
+          'ytd-mini-guide-entry-renderer:has(a[title="Shorts"])',
+          'ytd-mini-guide-entry-renderer[aria-label="Shorts"]',
+        ],
+      },
+      {
+        id: "sidebar-explore",
+        group: "Left",
+        label: "Explore section",
+        default: true,
+        match: (root) => guideSection(root, /^explore$/i),
+      },
+      {
+        id: "sidebar-more-from-youtube",
+        group: "Left",
+        label: "More from YouTube section",
+        default: true,
+        match: (root) => guideSection(root, /^more from youtube$/i),
+      },
+      {
+        id: "sidebar-report-history",
+        group: "Left",
+        label: "Report history",
+        default: true,
+        css: ['ytd-guide-entry-renderer:has(a[href*="reporthistory"])'],
+        match: (root) =>
+          [...root.querySelectorAll("ytd-guide-entry-renderer")].filter((el) =>
+            /^\s*report history\s*$/i.test(el.textContent || "")
+          ),
+      },
+      {
+        id: "sidebar-footer",
+        group: "Left",
+        label: "Footer (About, Terms…)",
+        default: true,
+        css: ["ytd-guide-renderer #footer"],
+      },
       {
         id: "history-off-nudge",
         group: "Center",
