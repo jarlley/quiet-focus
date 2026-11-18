@@ -38,6 +38,38 @@ function guideSection(root, re) {
   );
 }
 
+// Background colour shared by every site: a blend layer over the page.
+// Values are "<mode>:<hex>": `darken` tints white (light theme), `lighten` tints black (dark theme).
+const BG_CHOICES = [
+  { value: "darken:f5f1e8", label: "Light: Warm paper" },
+  { value: "darken:eef2f7", label: "Light: Cool gray" },
+  { value: "darken:eef5ee", label: "Light: Soft green" },
+  { value: "darken:f0eef7", label: "Light: Lavender" },
+  { value: "lighten:121212", label: "Dark theme: Charcoal" },
+  { value: "lighten:1c1c1e", label: "Dark theme: Dark gray" },
+  { value: "lighten:15202b", label: "Dark theme: Dim blue" },
+  { value: "lighten:0f172a", label: "Dark theme: Navy" },
+  { value: "lighten:1a1410", label: "Dark theme: Warm brown" },
+  { value: "lighten:0d1b14", label: "Dark theme: Forest" },
+];
+function bgOption(def = "") {
+  return {
+    id: "bg-color",
+    group: "General",
+    label: "Background color",
+    offLabel: "Default",
+    default: def,
+    choices: BG_CHOICES,
+    rules: (v) => {
+      // Older saved values were a bare hex (dark only).
+      const [mode, hex] = v.includes(":") ? v.split(":") : ["lighten", v];
+      return [
+        `html::before { content: ""; position: fixed; inset: 0; z-index: 2147483647; pointer-events: none; background: #${hex}; mix-blend-mode: ${mode}; }`,
+      ];
+    },
+  };
+}
+
 const FOCO_SITES = [
   {
     id: "youtube",
@@ -103,31 +135,7 @@ const FOCO_SITES = [
             /watch history is off/i.test(el.textContent || "") && el.querySelectorAll("ytd-rich-item-renderer").length === 0
           ),
       },
-      {
-        // Same trick as Gmail: a blend layer over the page. Values are "<mode>:<hex>";
-        // `lighten` for the dark theme, `darken` for the light theme.
-        id: "bg-color",
-        group: "General",
-        label: "Background color",
-        offLabel: "Default",
-        default: "",
-        choices: [
-          { value: "darken:f5f1e8", label: "Light: Warm paper" },
-          { value: "darken:eef2f7", label: "Light: Cool gray" },
-          { value: "darken:eef5ee", label: "Light: Soft green" },
-          { value: "darken:f0eef7", label: "Light: Lavender" },
-          { value: "lighten:121212", label: "Dark theme: Charcoal" },
-          { value: "lighten:15202b", label: "Dark theme: Dim blue" },
-          { value: "lighten:0f172a", label: "Dark theme: Navy" },
-          { value: "lighten:1a1410", label: "Dark theme: Warm brown" },
-        ],
-        rules: (v) => {
-          const [mode, hex] = v.split(":");
-          return [
-            `html::before { content: ""; position: fixed; inset: 0; z-index: 2147483647; pointer-events: none; background: #${hex}; mix-blend-mode: ${mode}; }`,
-          ];
-        },
-      },
+      bgOption(),
     ],
   },
   {
@@ -278,6 +286,7 @@ const FOCO_SITES = [
           'main a[href^="/"][role="link"] span { filter: blur(8px) !important; }',
         ],
       },
+      bgOption(),
     ],
   },
   {
@@ -506,31 +515,7 @@ const FOCO_SITES = [
           return [box];
         },
       },
-      {
-        // Same trick as X, both ways: on Gmail's light theme a layer with `darken` turns white
-        // into the chosen tint (darker text and icons stay); on a dark theme `lighten` turns
-        // black into the chosen colour. Values are "<mode>:<hex>".
-        id: "bg-color",
-        group: "General",
-        label: "Background color",
-        offLabel: "Default",
-        default: "",
-        choices: [
-          { value: "darken:f5f1e8", label: "Light: Warm paper" },
-          { value: "darken:eef2f7", label: "Light: Cool gray" },
-          { value: "darken:eef5ee", label: "Light: Soft green" },
-          { value: "darken:f0eef7", label: "Light: Lavender" },
-          { value: "lighten:121212", label: "Dark theme: Charcoal" },
-          { value: "lighten:15202b", label: "Dark theme: Dim blue" },
-          { value: "lighten:0f172a", label: "Dark theme: Navy" },
-        ],
-        rules: (v) => {
-          const [mode, hex] = v.split(":");
-          return [
-            `html::before { content: ""; position: fixed; inset: 0; z-index: 2147483647; pointer-events: none; background: #${hex}; mix-blend-mode: ${mode}; }`,
-          ];
-        },
-      },
+      bgOption(),
     ],
   },
   {
@@ -791,28 +776,7 @@ const FOCO_SITES = [
           '*, *::before, *::after { font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji" !important; }',
         ],
       },
-      {
-        // X paints its pure-black background on many elements through generated classes, so
-        // instead of selecting them, a fixed full-screen layer blends over the page with
-        // `lighten` (per channel max): pure black becomes the chosen colour, while anything
-        // brighter (text, borders, buttons) is untouched. Only dark colours make sense here.
-        id: "bg-color",
-        group: "General",
-        label: "Background color",
-        offLabel: "Default (black)",
-        default: "121212",
-        choices: [
-          { value: "15202b", label: "Dim blue" },
-          { value: "121212", label: "Charcoal" },
-          { value: "1c1c1e", label: "Dark gray" },
-          { value: "0f172a", label: "Navy" },
-          { value: "1a1410", label: "Warm brown" },
-          { value: "0d1b14", label: "Forest" },
-        ],
-        rules: (hex) => [
-          `html::before { content: ""; position: fixed; inset: 0; z-index: 2147483647; pointer-events: none; background: #${hex}; mix-blend-mode: lighten; }`,
-        ],
-      },
+      bgOption("lighten:121212"),
       {
         // Blurs faces, names, text and media so screenshots show only the layout.
         id: "screenshot-mode",
