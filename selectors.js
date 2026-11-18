@@ -103,6 +103,31 @@ const FOCO_SITES = [
             /watch history is off/i.test(el.textContent || "") && el.querySelectorAll("ytd-rich-item-renderer").length === 0
           ),
       },
+      {
+        // Same trick as Gmail: a blend layer over the page. Values are "<mode>:<hex>";
+        // `lighten` for the dark theme, `darken` for the light theme.
+        id: "bg-color",
+        group: "General",
+        label: "Background color",
+        offLabel: "Default",
+        default: "",
+        choices: [
+          { value: "darken:f5f1e8", label: "Light: Warm paper" },
+          { value: "darken:eef2f7", label: "Light: Cool gray" },
+          { value: "darken:eef5ee", label: "Light: Soft green" },
+          { value: "darken:f0eef7", label: "Light: Lavender" },
+          { value: "lighten:121212", label: "Dark theme: Charcoal" },
+          { value: "lighten:15202b", label: "Dark theme: Dim blue" },
+          { value: "lighten:0f172a", label: "Dark theme: Navy" },
+          { value: "lighten:1a1410", label: "Dark theme: Warm brown" },
+        ],
+        rules: (v) => {
+          const [mode, hex] = v.split(":");
+          return [
+            `html::before { content: ""; position: fixed; inset: 0; z-index: 2147483647; pointer-events: none; background: #${hex}; mix-blend-mode: ${mode}; }`,
+          ];
+        },
+      },
     ],
   },
   {
