@@ -70,6 +70,15 @@ function bgOption(def = "") {
   };
 }
 
+// TradingView top toolbar: the group holding a button with this text (incl. its separator).
+function tvTopButtons(root, re) {
+  const bar = root.querySelector("#header-toolbar, .layout__area--top");
+  if (!bar) return [];
+  return [...bar.querySelectorAll(".js-button-text, button")]
+    .filter((el) => re.test((el.textContent || "").trim()))
+    .map((el) => el.closest('[class*="group"]') || el.closest("button") || el);
+}
+
 const FOCO_SITES = [
   {
     id: "youtube",
@@ -822,6 +831,39 @@ const FOCO_SITES = [
     hosts: ["tradingview.com"],
     groups: ["Top", "Left", "Center", "Right", "Bottom", "General"],
     options: [
+      {
+        id: "top-chart-style",
+        group: "Top",
+        label: "Chart type button",
+        default: true,
+        css: ["#header-toolbar-chart-styles", '[data-name="header-toolbar-chart-styles"]'],
+      },
+      {
+        id: "top-indicators",
+        group: "Top",
+        label: "Indicators",
+        default: true,
+        css: ["#header-toolbar-indicators", '[data-name="open-indicators-dialog"]'],
+        match: (root) => tvTopButtons(root, /^indicators$/i),
+      },
+      {
+        id: "top-alert",
+        group: "Top",
+        label: "Alert",
+        default: true,
+        css: ["#header-toolbar-alerts", '[data-name="set-alert-button"]'],
+        match: (root) => tvTopButtons(root, /^alert$/i),
+      },
+      {
+        id: "top-replay-icon-only",
+        group: "Top",
+        label: "Replay (icon only)",
+        default: true,
+        rules: [
+          '#header-toolbar-replay .js-button-text { display: none !important; }',
+          '[data-name="header-toolbar-replay"] .js-button-text { display: none !important; }',
+        ],
+      },
       {
         // Keeps the bottom bar but shows only its clock ("14:04:40 UTC-5"): everything in
         // the bar that is not on the path to the clock is marked and hidden. Class names
