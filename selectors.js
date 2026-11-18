@@ -830,7 +830,7 @@ const FOCO_SITES = [
         group: "Bottom",
         label: "Bottom bar (keep the clock)",
         offLabel: "Show bar",
-        default: "",
+        default: "top",
         choices: [
           { value: "chart-bottom", label: "Hide bar, clock at chart corner" },
           { value: "top", label: "Hide bar, clock in top bar" },
