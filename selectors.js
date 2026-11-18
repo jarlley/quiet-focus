@@ -72,7 +72,7 @@ function bgOption(def = "") {
 
 // TradingView top toolbar: hide a button together with its wrapper (which also holds the
 // separator line), unless that wrapper also holds buttons we keep.
-const TV_KEEP = "#header-toolbar-replay, #header-toolbar-symbol-search, #header-toolbar-intervals, #header-toolbar-undo-redo, #header-toolbar-save-load, #header-toolbar-fullscreen, #header-toolbar-screenshot";
+const TV_KEEP = "#header-toolbar-replay, #header-toolbar-intervals, #header-toolbar-undo-redo, #header-toolbar-save-load, #header-toolbar-fullscreen, #header-toolbar-screenshot";
 function tvTop(id) {
   return [`#${id}`, `div:has(> #${id}):not(:has(${TV_KEEP}))`];
 }
@@ -846,6 +846,13 @@ const FOCO_SITES = [
     hosts: ["tradingview.com"],
     groups: ["Top", "Left", "Center", "Right", "Bottom", "General"],
     options: [
+      {
+        id: "top-symbol",
+        group: "Top",
+        label: "Symbol search (MNQ1! pill)",
+        default: true,
+        css: [...tvTop("header-toolbar-symbol-search"), '[data-name="header-toolbar-symbol-search"]'],
+      },
       {
         id: "top-compare",
         group: "Top",
