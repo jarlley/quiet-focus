@@ -42,46 +42,46 @@ const FOCO_SITES = [
     id: "instagram",
     label: "Instagram",
     hosts: ["instagram.com"],
-    groups: ["Sidebar", "Feed", "Right column", "Privacy"],
+    groups: ["Top", "Left", "Center", "Right", "Bottom", "General"],
     options: [
       {
         id: "sidebar-home",
-        group: "Sidebar",
+        group: "Left",
         label: "Home",
         default: false,
         css: ['a[href="/"]'],
       },
       {
         id: "sidebar-search",
-        group: "Sidebar",
+        group: "Left",
         label: "Search",
         default: false,
         css: igIcon("Search", "Pesquisar", "Pesquisa"),
       },
       {
         id: "sidebar-explore",
-        group: "Sidebar",
+        group: "Left",
         label: "Explore",
         default: false,
         css: ['a[href="/explore/"]'],
       },
       {
         id: "sidebar-reels",
-        group: "Sidebar",
+        group: "Left",
         label: "Reels",
         default: false,
         css: ['a[href="/reels/"]'],
       },
       {
         id: "sidebar-messages",
-        group: "Sidebar",
+        group: "Left",
         label: "Messages",
         default: false,
         css: ['a[href="/direct/inbox/"]'],
       },
       {
         id: "sidebar-notifications",
-        group: "Sidebar",
+        group: "Left",
         label: "Notifications",
         default: false,
         css: igIcon("Notifications", "Notificações"),
@@ -89,7 +89,7 @@ const FOCO_SITES = [
       {
         // Hides the "For you / Following" tabs and always opens the Following feed.
         id: "feed-following-only",
-        group: "Feed",
+        group: "Center",
         label: "Always \"Following\" (hide feed tabs)",
         default: true,
         // The tabs have no link or attribute to select them by, so they are found by
@@ -122,14 +122,14 @@ const FOCO_SITES = [
       },
       {
         id: "feed-stories",
-        group: "Feed",
+        group: "Center",
         label: "Stories",
         default: false,
         css: ['[data-pagelet="story_tray"]'],
       },
       {
         id: "feed-counts",
-        group: "Feed",
+        group: "Center",
         label: "Like and comment counts (icons only)",
         default: false,
         css: ['article a[href$="/liked_by/"]', 'article a[href$="/comments/"]'],
@@ -157,14 +157,14 @@ const FOCO_SITES = [
       },
       {
         id: "right-suggestions",
-        group: "Right column",
+        group: "Right",
         label: "Suggested for you",
         default: false,
         css: ['main div:has(a[href="/explore/people/"]):not(:has(article)):not(:has([data-pagelet="story_tray"]))'],
       },
       {
         id: "right-footer",
-        group: "Right column",
+        group: "Right",
         label: "Footer (About, Help…)",
         default: false,
         css: ['main footer'],
@@ -172,7 +172,7 @@ const FOCO_SITES = [
       {
         // Blurs faces, names, text and media so screenshots show only the layout.
         id: "screenshot-mode",
-        group: "Privacy",
+        group: "General",
         label: "Screenshot mode (blur personal content)",
         default: false,
         rules: [
@@ -194,110 +194,110 @@ const FOCO_SITES = [
     hosts: ["mail.google.com"],
     // Gmail has almost no stable attributes: nav links are found by their href, the rest
     // by long-lived class names, which Google may change.
-    groups: ["Top bar", "Sidebar", "Inbox", "Right side", "Appearance"],
+    groups: ["Top", "Left", "Center", "Right", "Bottom", "General"],
     options: [
       {
         // "Inbox (3) - name@gmail.com - Gmail" becomes "Inbox (3)".
         id: "tab-title",
-        group: "Top bar",
+        group: "General",
         label: "Tab title: folder only (hide email)",
         default: true,
         title: (t) => t.replace(/\s+[-–]\s+\S+@\S+[\s\S]*$/, ""),
       },
       {
         id: "compose",
-        group: "Sidebar",
+        group: "Left",
         label: "Compose button",
         default: false,
         css: ['.T-I.T-I-KE.L3'],
       },
       {
         id: "nav-starred",
-        group: "Sidebar",
+        group: "Left",
         label: "Starred",
         default: false,
         css: ['.aim:has(a[href$="#starred"])'],
       },
       {
         id: "nav-snoozed",
-        group: "Sidebar",
+        group: "Left",
         label: "Snoozed",
         default: false,
         css: ['.aim:has(a[href$="#snoozed"])'],
       },
       {
         id: "nav-important",
-        group: "Sidebar",
+        group: "Left",
         label: "Important",
         default: false,
         css: ['.aim:has(a[href$="#imp"])'],
       },
       {
         id: "nav-sent",
-        group: "Sidebar",
+        group: "Left",
         label: "Sent",
         default: false,
         css: ['.aim:has(a[href$="#sent"])'],
       },
       {
         id: "nav-drafts",
-        group: "Sidebar",
+        group: "Left",
         label: "Drafts",
         default: false,
         css: ['.aim:has(a[href$="#drafts"])'],
       },
       {
         id: "nav-scheduled",
-        group: "Sidebar",
+        group: "Left",
         label: "Scheduled",
         default: false,
         css: ['.aim:has(a[href$="#scheduled"])'],
       },
       {
         id: "nav-all",
-        group: "Sidebar",
+        group: "Left",
         label: "All Mail",
         default: false,
         css: ['.aim:has(a[href$="#all"])'],
       },
       {
         id: "nav-spam",
-        group: "Sidebar",
+        group: "Left",
         label: "Spam",
         default: false,
         css: ['.aim:has(a[href$="#spam"])'],
       },
       {
         id: "nav-trash",
-        group: "Sidebar",
+        group: "Left",
         label: "Trash",
         default: false,
         css: ['.aim:has(a[href$="#trash"])'],
       },
       {
         id: "nav-counts",
-        group: "Sidebar",
+        group: "Left",
         label: "Unread counts",
         default: false,
         css: ['.aim .bsU'],
       },
       {
         id: "inbox-tabs",
-        group: "Inbox",
+        group: "Center",
         label: "Category tabs (Promotions, Social…)",
         default: false,
         css: ['[role="main"] [role="tablist"]'],
       },
       {
         id: "side-panel",
-        group: "Right side",
+        group: "Right",
         label: "Side panel (Calendar, Keep, Tasks…)",
         default: false,
         css: ['.bq9', '.brC-aT5-aOt-Jw'],
       },
       {
         id: "gemini",
-        group: "Top bar",
+        group: "Top",
         label: "Gemini button",
         default: false,
         css: [
@@ -309,7 +309,7 @@ const FOCO_SITES = [
       },
       {
         id: "support",
-        group: "Top bar",
+        group: "Top",
         label: "Help (?) button",
         default: false,
         css: [
@@ -319,7 +319,7 @@ const FOCO_SITES = [
       },
       {
         id: "upgrade",
-        group: "Top bar",
+        group: "Top",
         label: "Upgrade button",
         default: false,
         css: [
@@ -329,7 +329,7 @@ const FOCO_SITES = [
       },
       {
         id: "settings",
-        group: "Top bar",
+        group: "Top",
         label: "Settings (gear) button",
         default: false,
         css: [
@@ -341,7 +341,7 @@ const FOCO_SITES = [
       },
       {
         id: "apps",
-        group: "Top bar",
+        group: "Top",
         label: "Google apps (grid) button",
         default: false,
         css: [
@@ -355,7 +355,7 @@ const FOCO_SITES = [
         // Gmail marks its main toolbar with gh="tm": select box, refresh, more, pagination
         // and the split-pane / input-tools arrows on the right.
         id: "toolbar",
-        group: "Inbox",
+        group: "Center",
         label: "Toolbar (select, refresh, more…)",
         default: false,
         // Also every wrapper of it that holds no list, so its reserved height and the
@@ -364,7 +364,7 @@ const FOCO_SITES = [
       },
       {
         id: "empty-message",
-        group: "Inbox",
+        group: "Center",
         label: "\"No new mail!\" message",
         default: false,
         css: ['[role="main"] td.TC', '[role="main"] table:has(td.TC)'],
@@ -375,7 +375,7 @@ const FOCO_SITES = [
       },
       {
         id: "toolbar-split-pane",
-        group: "Inbox",
+        group: "Center",
         label: "Split pane button",
         default: false,
         css: [
@@ -388,7 +388,7 @@ const FOCO_SITES = [
       },
       {
         id: "toolbar-input-tools",
-        group: "Inbox",
+        group: "Center",
         label: "Input tools (keyboard) button",
         default: false,
         css: [
@@ -401,7 +401,7 @@ const FOCO_SITES = [
         // Storage bar, Terms · Privacy and "Last account activity". No stable attributes,
         // so it is the smallest element holding both the Terms link and the storage link.
         id: "footer",
-        group: "Inbox",
+        group: "Bottom",
         label: "Footer (storage, Terms, account activity)",
         default: false,
         match: (root) => {
@@ -419,7 +419,7 @@ const FOCO_SITES = [
         // into the chosen tint (darker text and icons stay); on a dark theme `lighten` turns
         // black into the chosen colour. Values are "<mode>:<hex>".
         id: "bg-color",
-        group: "Appearance",
+        group: "General",
         label: "Background color",
         offLabel: "Default",
         default: "",
@@ -446,11 +446,11 @@ const FOCO_SITES = [
     label: "X",
     hosts: ["x.com", "twitter.com"],
     // Optional order of the popup sub-headings; groups not listed follow in order of first appearance.
-    groups: ["Sidebar", "Home", "Posts", "Right column", "Floating buttons", "Appearance", "Privacy"],
+    groups: ["Top", "Left", "Center", "Right", "Bottom", "General"],
     options: [
       {
         id: "sidebar-home",
-        group: "Sidebar",
+        group: "Left",
         label: "Home",
         default: false,
         css: [
@@ -460,7 +460,7 @@ const FOCO_SITES = [
       },
       {
         id: "sidebar-explore",
-        group: "Sidebar",
+        group: "Left",
         label: "Explore",
         default: false,
         css: [
@@ -470,7 +470,7 @@ const FOCO_SITES = [
       },
       {
         id: "sidebar-notifications",
-        group: "Sidebar",
+        group: "Left",
         label: "Notifications",
         default: false,
         css: [
@@ -480,14 +480,14 @@ const FOCO_SITES = [
       },
       {
         id: "sidebar-follow",
-        group: "Sidebar",
+        group: "Left",
         label: "Follow",
         default: true,
         css: [xSidebar('a[href^="/i/connect"]')],
       },
       {
         id: "sidebar-chat",
-        group: "Sidebar",
+        group: "Left",
         label: "Chat",
         default: true,
         css: [
@@ -497,42 +497,42 @@ const FOCO_SITES = [
       },
       {
         id: "sidebar-calls",
-        group: "Sidebar",
+        group: "Left",
         label: "Calls",
         default: true,
         css: [xSidebar('a[href="/i/calls"]')],
       },
       {
         id: "sidebar-grok",
-        group: "Sidebar",
+        group: "Left",
         label: "Grok",
         default: true,
         css: [xSidebar('a[href="/i/grok"]')],
       },
       {
         id: "sidebar-history",
-        group: "Sidebar",
+        group: "Left",
         label: "History",
         default: false,
         css: [xSidebar('a[href^="/i/history"]')],
       },
       {
         id: "sidebar-premium",
-        group: "Sidebar",
+        group: "Left",
         label: "Premium",
         default: true,
         css: [xSidebar('a[href^="/i/premium"]')],
       },
       {
         id: "sidebar-profile",
-        group: "Sidebar",
+        group: "Left",
         label: "Profile",
         default: false,
         css: [xSidebar('a[data-testid="AppTabBar_Profile_Link"]')],
       },
       {
         id: "sidebar-more",
-        group: "Sidebar",
+        group: "Left",
         label: "More",
         default: false,
         css: [xSidebar('[data-testid="AppTabBar_More_Menu"]')],
@@ -540,7 +540,7 @@ const FOCO_SITES = [
       {
         // Hides only the text next to each icon; the Post button and account menu are outside the <nav>.
         id: "sidebar-icons-only",
-        group: "Sidebar",
+        group: "Left",
         label: "Icons only (hide names)",
         default: false,
         css: [
@@ -550,14 +550,14 @@ const FOCO_SITES = [
       },
       {
         id: "sidebar-post-hide",
-        group: "Sidebar",
+        group: "Left",
         label: "Post button (hide)",
         default: true,
         css: [xSidebar('a[data-testid="SideNav_NewTweet_Button"]')],
       },
       {
         id: "sidebar-creator-studio",
-        group: "Sidebar",
+        group: "Left",
         label: "Creator Studio",
         default: true,
         css: [xSidebar('a[href^="/i/jf/creators"]')],
@@ -568,7 +568,7 @@ const FOCO_SITES = [
       // levels up, so :has() hides the whole card wrapper instead of only its content.
       {
         id: "right-premium",
-        group: "Right column",
+        group: "Right",
         label: "Subscribe to Premium",
         default: true,
         css: [
@@ -579,21 +579,21 @@ const FOCO_SITES = [
       },
       {
         id: "right-trending",
-        group: "Right column",
+        group: "Right",
         label: "What's happening",
         default: false,
         css: ['div:has(> section > div[aria-label="Timeline: Trending now"])'],
       },
       {
         id: "right-who-to-follow",
-        group: "Right column",
+        group: "Right",
         label: "Who to follow",
         default: true,
         css: ['div:has(> div > aside[aria-label="Who to follow"])'],
       },
       {
         id: "right-footer",
-        group: "Right column",
+        group: "Right",
         label: "Footer (Terms, Privacy…)",
         default: true,
         css: [
@@ -604,14 +604,14 @@ const FOCO_SITES = [
       // Floating buttons in the bottom-right corner.
       {
         id: "floating-grok",
-        group: "Floating buttons",
+        group: "Bottom",
         label: "Grok button",
         default: true,
         css: ['[data-testid="GrokDrawer"]'],
       },
       {
         id: "floating-messages",
-        group: "Floating buttons",
+        group: "Bottom",
         label: "Messages button",
         default: true,
         css: ['[data-testid="chat-drawer-root"]'],
@@ -620,7 +620,7 @@ const FOCO_SITES = [
       // touches a known separator, so bordered cards (quoted posts, polls) are untouched.
       {
         id: "lines-all",
-        group: "Appearance",
+        group: "General",
         label: "Remove all lines",
         default: false,
         rules: [
@@ -644,7 +644,7 @@ const FOCO_SITES = [
       // timeline cells (and, for the post box, of the tab bar), which is the wrapper itself.
       {
         id: "home-post-box",
-        group: "Home",
+        group: "Center",
         label: "Post box (What's happening?)",
         default: false,
         // Every ancestor of the field that does not contain a tab (role="tab") or a post cell.
@@ -659,7 +659,7 @@ const FOCO_SITES = [
       },
       {
         id: "home-for-you-tab",
-        group: "Home",
+        group: "Center",
         label: "\"For you\" tab",
         default: false,
         css: [
@@ -672,7 +672,7 @@ const FOCO_SITES = [
         // first selector hides the sticky wrapper too (every ancestor of the form that holds
         // no card), so no blank strip is left above the other cards.
         id: "right-search-hide",
-        group: "Right column",
+        group: "Right",
         label: "Search box (hide)",
         default: false,
         css: [
@@ -683,7 +683,7 @@ const FOCO_SITES = [
       {
         // Reply, repost, like and view counts live in this container inside the action bar.
         id: "post-counts-hide",
-        group: "Posts",
+        group: "Center",
         label: "Action counts (hide, icons only)",
         default: true,
         css: ['article [role="group"] [data-testid="app-text-transition-container"]'],
@@ -692,7 +692,7 @@ const FOCO_SITES = [
         // X sets TwitterChirp on <body> and again on many elements, so every element is overridden.
         // The emoji families stay at the end of the stack so emoji still render.
         id: "system-font",
-        group: "Appearance",
+        group: "General",
         label: "Use the system font",
         default: true,
         rules: [
@@ -705,7 +705,7 @@ const FOCO_SITES = [
         // `lighten` (per channel max): pure black becomes the chosen colour, while anything
         // brighter (text, borders, buttons) is untouched. Only dark colours make sense here.
         id: "bg-color",
-        group: "Appearance",
+        group: "General",
         label: "Background color",
         offLabel: "Default (black)",
         default: "121212",
@@ -724,7 +724,7 @@ const FOCO_SITES = [
       {
         // Blurs faces, names, text and media so screenshots show only the layout.
         id: "screenshot-mode",
-        group: "Privacy",
+        group: "General",
         label: "Screenshot mode (blur personal content)",
         default: false,
         rules: [
