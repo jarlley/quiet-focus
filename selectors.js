@@ -72,7 +72,7 @@ function bgOption(def = "") {
 
 // TradingView top toolbar: hide a button together with its wrapper (which also holds the
 // separator line), unless that wrapper also holds buttons we keep.
-const TV_KEEP = "#header-toolbar-replay, #header-toolbar-intervals, #header-toolbar-undo-redo, #header-toolbar-save-load, #header-toolbar-fullscreen, #header-toolbar-screenshot";
+const TV_KEEP = "#header-toolbar-replay, #header-toolbar-intervals, #header-toolbar-undo-redo, #header-toolbar-fullscreen, #header-toolbar-screenshot";
 function tvTop(id) {
   return [`#${id}`, `div:has(> #${id}):not(:has(${TV_KEEP}))`];
 }
@@ -852,6 +852,34 @@ const FOCO_SITES = [
         label: "Symbol search (MNQ1! pill)",
         default: true,
         css: [...tvTop("header-toolbar-symbol-search"), '[data-name="header-toolbar-symbol-search"]'],
+      },
+      {
+        id: "top-layout",
+        group: "Top",
+        label: "Layout (square)",
+        default: true,
+        css: [...tvTop("header-toolbar-layouts"), '[data-name="header-toolbar-layouts"]'],
+      },
+      {
+        id: "top-save-load",
+        group: "Top",
+        label: "Charts (save / load)",
+        default: true,
+        css: [...tvTop("header-toolbar-save-load"), '[data-name="header-toolbar-save-load"]'],
+      },
+      {
+        id: "top-quick-search",
+        group: "Top",
+        label: "Quick search",
+        default: true,
+        css: [...tvTop("header-toolbar-quick-search"), '[data-name="header-toolbar-quick-search"]'],
+      },
+      {
+        id: "top-settings",
+        group: "Top",
+        label: "Chart settings (gear)",
+        default: true,
+        css: [...tvTop("header-toolbar-properties"), '[data-name="header-toolbar-properties"]'],
       },
       {
         id: "top-compare",
